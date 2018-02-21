@@ -1,14 +1,14 @@
 <?php
 
 use abdualiym\languageClass\Language;
-use domain\modules\text\Module;
+use abdualiym\text\Module;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $form yii\widgets\ActiveForm */
-/* @var $model domain\modules\text\forms\TextForm */
-/* @var $text domain\modules\text\entities\Text */
+/* @var $model abdualiym\text\forms\TextForm */
+/* @var $text abdualiym\text\entities\Text */
 
 $langList = Language::langList(Yii::$app->params['languages'], true);
 
@@ -92,7 +92,7 @@ $thumb = isset($text->photo) ? $text->getThumbFileUrl('photo', 'thumb') : '';
             </div>
 
             <div class="box box-default <?= $page ? 'hidden' : '' ?>">
-                <div class="box-header with-border"><?= \domain\modules\text\Module::t('text', 'Photo') ?></div>
+                <div class="box-header with-border"><?= \abdualiym\text\Module::t('text', 'Photo') ?></div>
                 <div class="box-body">
                     <?= $form->field($model, 'photo')
                         ->label(false)

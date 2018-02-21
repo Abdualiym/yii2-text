@@ -1,14 +1,14 @@
 <?php
 
-use domain\modules\text\Module;
+use abdualiym\text\Module;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $text domain\modules\text\entities\Text */
+/* @var $text abdualiym\text\entities\Text */
 
 $this->title = $text->translations[1]['title'];
-$this->params['breadcrumbs'][] = ['label' => \domain\modules\text\Module::t('text', $page ? 'Pages' : 'Articles'), 'url' => ['index', 'page' => $page]];
+$this->params['breadcrumbs'][] = ['label' => \abdualiym\text\Module::t('text', $page ? 'Pages' : 'Articles'), 'url' => ['index', 'page' => $page]];
 $this->params['breadcrumbs'][] = $this->title;
 
 $langList = \abdualiym\languageClass\Language::langList(Yii::$app->params['languages'], true);
@@ -49,7 +49,7 @@ $langList = \abdualiym\languageClass\Language::langList(Yii::$app->params['langu
                     ],
                     [
                         'attribute' => 'status',
-                        'value' => \domain\modules\text\helpers\TextHelper::statusLabel($text->status),
+                        'value' => \abdualiym\text\helpers\TextHelper::statusLabel($text->status),
                         'format' => 'raw',
                     ],
                     [

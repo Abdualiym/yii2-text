@@ -1,11 +1,11 @@
 <?php
 
-namespace domain\modules\text\entities;
+namespace abdualiym\text\entities;
 
 use abdualiym\languageClass\Language;
 use backend\entities\User;
 use domain\modules\menu\entities\Menu;
-use domain\modules\text\entities\queries\TextQuery;
+use abdualiym\text\entities\queries\TextQuery;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\behaviors\AttributeBehavior;
 use yii\behaviors\BlameableBehavior;

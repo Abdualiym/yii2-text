@@ -1,8 +1,8 @@
 <?php
 
-namespace domain\modules\text\helpers;
+namespace abdualiym\text\helpers;
 
-use domain\modules\text\entities\Category;
+use abdualiym\text\entities\Category;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 

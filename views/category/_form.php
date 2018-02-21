@@ -6,8 +6,8 @@ use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $form yii\widgets\ActiveForm */
-/* @var $model domain\modules\text\forms\CategoryForm */
-/* @var $category domain\modules\text\entities\Category */
+/* @var $model abdualiym\text\forms\CategoryForm */
+/* @var $category abdualiym\text\entities\Category */
 
 $langList = Language::langList(Yii::$app->params['languages'], true);
 

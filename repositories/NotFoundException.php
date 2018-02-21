@@ -1,6 +1,6 @@
 <?php
 
-namespace domain\modules\text\repositories;
+namespace abdualiym\text\repositories;
 
 class NotFoundException extends \DomainException
 {

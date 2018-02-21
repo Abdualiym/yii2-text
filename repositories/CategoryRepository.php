@@ -1,9 +1,9 @@
 <?php
 
-namespace domain\modules\text\repositories;
+namespace abdualiym\text\repositories;
 
 
-use domain\modules\text\entities\Category;
+use abdualiym\text\entities\Category;
 
 class CategoryRepository
 {

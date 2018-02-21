@@ -1,9 +1,9 @@
 <?php
 
-namespace domain\modules\text\forms;
+namespace abdualiym\text\forms;
 
 use abdualiym\languageClass\Language;
-use domain\modules\text\entities\Category;
+use abdualiym\text\entities\Category;
 use elisdn\compositeForm\CompositeForm;
 
 /**

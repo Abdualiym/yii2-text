@@ -1,8 +1,8 @@
 <?php
 
-namespace domain\modules\text\entities\behaviors;
+namespace abdualiym\text\entities\behaviors;
 
-use domain\modules\text\entities\Meta;
+use abdualiym\text\entities\Meta;
 use yii\base\Behavior;
 use yii\base\Event;
 use yii\db\ActiveRecord;

@@ -1,6 +1,6 @@
 <?php
 
-namespace domain\modules\text\entities;
+namespace abdualiym\text\entities;
 
 use abdualiym\languageClass\Language;
 use domain\modules\menu\entities\Menu;
@@ -117,7 +117,7 @@ class TextTranslation extends ActiveRecord
 //    public function behaviors(): array
 //    {
 //        return [
-//            \domain\modules\text\entities\behaviors\MetaBehavior::className(),
+//            \abdualiym\text\entities\behaviors\MetaBehavior::className(),
 //        ];
 //    }
 

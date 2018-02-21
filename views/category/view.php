@@ -1,11 +1,11 @@
 <?php
 
-use domain\modules\text\Module;
+use abdualiym\text\Module;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $category domain\modules\text\entities\Category */
+/* @var $category abdualiym\text\entities\Category */
 
 $this->title = $category->translations[0]['name'];
 $this->params['breadcrumbs'][] = ['label' => 'Категории', 'url' => ['index']];
@@ -37,7 +37,7 @@ $langList = \abdualiym\languageClass\Language::langList(Yii::$app->params['langu
             'id',
             [
                 'attribute' => 'status',
-                'value' => \domain\modules\text\helpers\CategoryHelper::statusLabel($category->status),
+                'value' => \abdualiym\text\helpers\CategoryHelper::statusLabel($category->status),
                 'format' => 'raw',
             ],
             [
@@ -50,7 +50,7 @@ $langList = \abdualiym\languageClass\Language::langList(Yii::$app->params['langu
             [
                 'attribute' => 'feed_with_image',
                 'format' => 'boolean',
-                'label' => (new \domain\modules\text\forms\CategoryForm())->getAttributeLabel('feed_with_image')
+                'label' => (new \abdualiym\text\forms\CategoryForm())->getAttributeLabel('feed_with_image')
             ],
         ],
     ]) ?>

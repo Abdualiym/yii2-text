@@ -1,9 +1,9 @@
 <?php
 
-namespace domain\modules\text\forms;
+namespace abdualiym\text\forms;
 
-use domain\modules\text\entities\Text;
-use domain\modules\text\entities\TextTranslation;
+use abdualiym\text\entities\Text;
+use abdualiym\text\entities\TextTranslation;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 

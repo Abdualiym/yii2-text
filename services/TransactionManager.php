@@ -1,6 +1,6 @@
 <?php
 
-namespace domain\modules\text\services;
+namespace abdualiym\text\services;
 
 class TransactionManager
 {

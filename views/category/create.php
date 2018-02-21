@@ -1,7 +1,7 @@
 <?php
 
 /* @var $this yii\web\View */
-/* @var $model domain\modules\text\forms\CategoryForm */
+/* @var $model abdualiym\text\forms\CategoryForm */
 
 $this->title = 'Добавить';
 $this->params['breadcrumbs'][] = ['label' => 'Категории', 'url' => ['index']];

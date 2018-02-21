@@ -1,8 +1,8 @@
 <?php
 
-namespace domain\modules\text\entities\queries;
+namespace abdualiym\text\entities\queries;
 
-use domain\modules\text\entities\Category;
+use abdualiym\text\entities\Category;
 use yii\db\ActiveQuery;
 
 class CategoryQuery extends ActiveQuery

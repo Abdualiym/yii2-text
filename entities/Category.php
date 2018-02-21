@@ -1,9 +1,9 @@
 <?php
 
-namespace domain\modules\text\entities;
+namespace abdualiym\text\entities;
 
 use backend\entities\User;
-use domain\modules\text\entities\queries\CategoryQuery;
+use abdualiym\text\entities\queries\CategoryQuery;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;

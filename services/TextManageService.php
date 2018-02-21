@@ -1,12 +1,12 @@
 <?php
 
-namespace domain\modules\text\services;
+namespace abdualiym\text\services;
 
 
-use domain\modules\text\entities\Text;
-use domain\modules\text\forms\TextForm;
-use domain\modules\text\repositories\TextRepository;
-use domain\modules\text\repositories\TextTranslationRepository;
+use abdualiym\text\entities\Text;
+use abdualiym\text\forms\TextForm;
+use abdualiym\text\repositories\TextRepository;
+use abdualiym\text\repositories\TextTranslationRepository;
 
 class TextManageService
 {

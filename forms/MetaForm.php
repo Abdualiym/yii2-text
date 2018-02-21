@@ -1,6 +1,6 @@
 <?php
 
-namespace domain\modules\text\forms;
+namespace abdualiym\text\forms;
 
 use shop\entities\Meta;
 use yii\base\Model;

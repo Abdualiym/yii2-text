@@ -1,8 +1,8 @@
 <?php
 
 /* @var $this yii\web\View */
-/* @var $category domain\modules\text\entities\Category */
-/* @var $model domain\modules\text\forms\CategoryForm */
+/* @var $category abdualiym\text\entities\Category */
+/* @var $model abdualiym\text\forms\CategoryForm */
 
 $this->title = 'Обновить: ' . $category->translations[0]['name'];
 $this->params['breadcrumbs'][] = ['label' => 'Категории', 'url' => ['index']];

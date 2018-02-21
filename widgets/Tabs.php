@@ -1,11 +1,11 @@
 <?php
-namespace domain\modules\text\widgets;
+namespace abdualiym\text\widgets;
 
 
 use abdualiym\languageClass\Language;
 use domain\modules\menu\entities\Menu;
-use domain\modules\text\entities\Category;
-use domain\modules\text\entities\Text;
+use abdualiym\text\entities\Category;
+use abdualiym\text\entities\Text;
 use yii\base\Widget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\StringHelper;

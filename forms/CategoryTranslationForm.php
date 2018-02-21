@@ -1,9 +1,9 @@
 <?php
 
-namespace domain\modules\text\forms;
+namespace abdualiym\text\forms;
 
 use abdualiym\languageClass\Language;
-use domain\modules\text\entities\CategoryTranslation;
+use abdualiym\text\entities\CategoryTranslation;
 use yii\base\Model;
 
 /**

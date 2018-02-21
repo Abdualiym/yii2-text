@@ -1,10 +1,10 @@
 <?php
 
-namespace domain\modules\text\forms;
+namespace abdualiym\text\forms;
 
 use abdualiym\languageClass\Language;
-use domain\modules\text\entities\Category;
-use domain\modules\text\entities\Text;
+use abdualiym\text\entities\Category;
+use abdualiym\text\entities\Text;
 use elisdn\compositeForm\CompositeForm;
 use yii\helpers\ArrayHelper;
 use yii\web\UploadedFile;

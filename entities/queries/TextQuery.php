@@ -1,8 +1,8 @@
 <?php
 
-namespace domain\modules\text\entities\queries;
+namespace abdualiym\text\entities\queries;
 
-use domain\modules\text\entities\Text;
+use abdualiym\text\entities\Text;
 use yii\db\ActiveQuery;
 
 class TextQuery extends ActiveQuery

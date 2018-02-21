@@ -1,15 +1,16 @@
 <?php
 
 use abdualiym\languageClass\Language;
-use domain\modules\text\entities\Text;
+use abdualiym\text\entities\Text;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $searchModel domain\modules\text\forms\TextSearch */
+/* @var $searchModel abdualiym\text\forms\TextSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = \domain\modules\text\Module::t('text', $page ? 'Pages' : 'Articles');
+//$this->title = \abdualiym\text\Module::t('text', $page ? 'Pages' : 'Articles');
+$this->title = $page ? 'Pages' : 'Articles';
 $this->params['breadcrumbs'][] = $this->title;
 
 $columns = [];
@@ -32,7 +33,7 @@ if (!$page) {
     $columns[] =
         [
             'attribute' => 'date',
-            'label' => \domain\modules\text\Module::t('text', 'Date'),
+//            'label' => \abdualiym\text\Module::t('text', 'Date'),
             'format' => 'date',
         ];
 }

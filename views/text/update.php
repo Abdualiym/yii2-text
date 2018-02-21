@@ -1,11 +1,11 @@
 <?php
 
 /* @var $this yii\web\View */
-/* @var $text domain\modules\text\entities\Text */
-/* @var $model domain\modules\text\forms\TextForm */
+/* @var $text abdualiym\text\entities\Text */
+/* @var $model abdualiym\text\forms\TextForm */
 
 $this->title = 'Обновить: ' . $text->translations[0]['title'];
-$this->params['breadcrumbs'][] = ['label' => \domain\modules\text\Module::t('text', $page ? 'Pages' : 'Articles'), 'url' => ['index', 'page' => $page]];
+$this->params['breadcrumbs'][] = ['label' => \abdualiym\text\Module::t('text', $page ? 'Pages' : 'Articles'), 'url' => ['index', 'page' => $page]];
 $this->params['breadcrumbs'][] = ['label' => $text->translations[0]['title'], 'url' => ['view', 'id' => $text->id, 'page' => $page]];
 ?>
 <div class="text-update">

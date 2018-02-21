@@ -1,12 +1,12 @@
 <?php
 
-namespace domain\modules\text\services;
+namespace abdualiym\text\services;
 
 
-use domain\modules\text\entities\Category;
-use domain\modules\text\forms\CategoryForm;
-use domain\modules\text\repositories\CategoryRepository;
-use domain\modules\text\repositories\CategoryTranslationRepository;
+use abdualiym\text\entities\Category;
+use abdualiym\text\forms\CategoryForm;
+use abdualiym\text\repositories\CategoryRepository;
+use abdualiym\text\repositories\CategoryTranslationRepository;
 
 class CategoryManageService
 {

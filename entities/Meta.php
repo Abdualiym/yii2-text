@@ -1,6 +1,6 @@
 <?php
 
-namespace domain\modules\text\entities;
+namespace abdualiym\text\entities;
 
 class Meta
 {

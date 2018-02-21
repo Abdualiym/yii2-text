@@ -1,17 +1,18 @@
 <?php
 
-namespace domain\modules\text\controllers;
+namespace abdualiym\text\controllers;
 
-use domain\modules\text\entities\Category;
-use domain\modules\text\forms\CategoryForm;
-use domain\modules\text\forms\CategorySearch;
-use domain\modules\text\services\CategoryManageService;
+use abdualiym\text\entities\Category;
+use abdualiym\text\forms\CategoryForm;
+use abdualiym\text\forms\CategorySearch;
+use abdualiym\text\services\CategoryManageService;
 use Yii;
+use yii\base\ViewContextInterface;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
-class CategoryController extends Controller
+class CategoryController extends Controller implements ViewContextInterface
 {
     private $service;
 
@@ -35,9 +36,13 @@ class CategoryController extends Controller
         ];
     }
 
-    /**
-     * @return mixed
-     */
+
+    public function getViewPath()
+    {
+        return Yii::getAlias('@vendor/abdualiym/yii2-text/views/category');
+    }
+
+
     public function actionIndex()
     {
         $searchModel = new CategorySearch();

@@ -1,17 +1,18 @@
 <?php
 
-namespace domain\modules\text\controllers;
+namespace abdualiym\text\controllers;
 
-use domain\modules\text\entities\Text;
-use domain\modules\text\forms\TextForm;
-use domain\modules\text\forms\TextSearch;
-use domain\modules\text\services\TextManageService;
+use abdualiym\text\entities\Text;
+use abdualiym\text\forms\TextForm;
+use abdualiym\text\forms\TextSearch;
+use abdualiym\text\services\TextManageService;
 use Yii;
+use yii\base\ViewContextInterface;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
-class TextController extends Controller
+class TextController extends Controller implements ViewContextInterface
 {
     private $service;
 
@@ -35,9 +36,13 @@ class TextController extends Controller
         ];
     }
 
-    /**
-     * @return mixed
-     */
+
+    public function getViewPath()
+    {
+        return Yii::getAlias('@vendor/abdualiym/yii2-text/views/text');
+    }
+
+
     public function actionIndex($page = false)
     {
         $searchModel = new TextSearch($page);
