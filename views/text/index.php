@@ -9,8 +9,8 @@ use yii\helpers\Html;
 /* @var $searchModel abdualiym\text\forms\TextSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-//$this->title = \abdualiym\text\Module::t('text', $page ? 'Pages' : 'Articles');
-$this->title = $page ? 'Pages' : 'Articles';
+
+$this->title = \abdualiym\text\Module::t('text', $page ? 'Pages' : 'Articles');
 $this->params['breadcrumbs'][] = $this->title;
 
 $columns = [];
@@ -25,7 +25,7 @@ if (!$page) {
     $columns[] =
         [
             'attribute' => 'category_id',
-            'label' => 'Категория',
+            'label' => \abdualiym\text\Module::t('text', 'Category'),
             'value' => function (Text $model) {
                 return $model->category ? $model->category->translations[0]['name'] : 'No';
             },
@@ -33,7 +33,7 @@ if (!$page) {
     $columns[] =
         [
             'attribute' => 'date',
-//            'label' => \abdualiym\text\Module::t('text', 'Date'),
+            'label' => \abdualiym\text\Module::t('text', 'Date'),
             'format' => 'date',
         ];
 }

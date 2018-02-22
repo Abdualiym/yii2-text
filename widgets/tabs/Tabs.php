@@ -6,7 +6,7 @@ namespace frontend\widgets\tabs;
 use abdualiym\languageClass\Language;
 use abdualiym\text\entities\Category;
 use abdualiym\text\entities\Text;
-use domain\modules\menu\entities\Menu;
+use abdualiym\menu\entities\Menu;
 use Yii;
 use yii\base\Widget;
 use yii\helpers\ArrayHelper;

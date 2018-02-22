@@ -41,8 +41,6 @@ $thumb = isset($text->photo) ? $text->getThumbFileUrl('photo', 'thumb') : '';
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist">
                         <?php
-//                        \yii\helpers\VarDumper::dump($model->translations, 10, true);
-//                        die;
                         foreach ($model->translations as $i => $translation) {
                             ?>
                             <li role="presentation" <?= $i == 0 ? 'class="active"' : '' ?>>
@@ -93,8 +91,7 @@ $thumb = isset($text->photo) ? $text->getThumbFileUrl('photo', 'thumb') : '';
             </div>
 
             <div class="box box-default <?= $page ? 'hidden' : '' ?>">
-<!--                <div class="box-header with-border">--><?php //= \abdualiym\text\Module::t('text', 'Photo') ?><!--</div>-->
-                <div class="box-header with-border">Photo</div>
+                <div class="box-header with-border"><?php = \abdualiym\text\Module::t('text', 'Photo') ?></div>
                 <div class="box-body">
                     <?= $form->field($model, 'photo')
                         ->label(false)

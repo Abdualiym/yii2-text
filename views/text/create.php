@@ -4,8 +4,7 @@
 /* @var $model abdualiym\text\forms\TextForm */
 
 $this->title = 'Добавить';
-//$this->params['breadcrumbs'][] = ['label' => \abdualiym\text\Module::t('text', $page ? 'Pages' : 'Articles'), 'url' => ['index', 'page' => $page]];
-$this->params['breadcrumbs'][] = ['label' => $page ? 'Pages' : 'Articles', 'url' => ['index', 'page' => $page]];
+$this->params['breadcrumbs'][] = ['label' => \abdualiym\text\Module::t('text', $page ? 'Pages' : 'Articles'), 'url' => ['index', 'page' => $page]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="category-create">
