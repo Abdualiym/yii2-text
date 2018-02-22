@@ -6,7 +6,7 @@
     <li>
         <time class="the-date"><?= $item['date'] != 0 ? Yii::$app->formatter->asDate($item['date']) : Yii::$app->formatter->asDate($item['created_at'] )?></time>
         <div class="list-title"><a href="<?=
-            \domain\modules\menu\entities\Menu::getSlug(
+            abdualiym\menu\entities\Menu::getSlug(
                 $item['translations'][0]['slug'],
                 'content',
                 $item['id'],

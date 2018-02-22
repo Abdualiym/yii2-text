@@ -8,7 +8,8 @@ use yii\widgets\DetailView;
 /* @var $text abdualiym\text\entities\Text */
 
 $this->title = $text->translations[1]['title'];
-$this->params['breadcrumbs'][] = ['label' => \abdualiym\text\Module::t('text', $page ? 'Pages' : 'Articles'), 'url' => ['index', 'page' => $page]];
+//$this->params['breadcrumbs'][] = ['label' => \abdualiym\text\Module::t('text', $page ? 'Pages' : 'Articles'), 'url' => ['index', 'page' => $page]];
+$this->params['breadcrumbs'][] = ['label' => $page ? 'Pages' : 'Articles', 'url' => ['index', 'page' => $page]];
 $this->params['breadcrumbs'][] = $this->title;
 
 $langList = \abdualiym\languageClass\Language::langList(Yii::$app->params['languages'], true);
@@ -45,7 +46,7 @@ $langList = \abdualiym\languageClass\Language::langList(Yii::$app->params['langu
                                     : ''
                                 ;
                         },
-                        'label' => Module::t('text', 'Category')
+//                        'label' => Module::t('text', 'Category')
                     ],
                     [
                         'attribute' => 'status',
@@ -55,22 +56,24 @@ $langList = \abdualiym\languageClass\Language::langList(Yii::$app->params['langu
                     [
                         'attribute' => 'date',
                         'format' => 'date',
-                        'label' => Module::t('text', 'Date')
+//                        'label' => Module::t('text', 'Date')
                     ],
                     [
                         'attribute' => 'is_article',
                         'format' => 'raw',
                         'value' => function ($model) {
-                            return $model->is_article ? Module::t('text', 'Article') : Module::t('text', 'Page');
+//                            return $model->is_article ? Module::t('text', 'Article') : Module::t('text', 'Page');
+                            return $model->is_article ? 'Article': 'Page';
                         },
-                        'label' => Module::t('text', 'Type')
+//                        'label' => Module::t('text', 'Type')
                     ],
                 ],
             ]) ?>
         </div>
         <div class="col-sm-6">
             <div class="box">
-                <div class="box-header with-border"><?= Module::t('text', 'Photo') ?></div>
+<!--                <div class="box-header with-border">--><?php //= Module::t('text', 'Photo') ?><!--</div>-->
+                <div class="box-header with-border">Photo</div>
                 <div class="box-body">
                     <?php if ($text->photo): ?>
                         <?= Html::a(Html::img($text->getThumbFileUrl('photo', 'thumb')), $text->getUploadedFileUrl('photo'), [
@@ -123,15 +126,15 @@ $langList = \abdualiym\languageClass\Language::langList(Yii::$app->params['langu
                                 'attributes' => [
                                     [
                                         'attribute' => 'title',
-                                        'label' => Module::t('text', 'Title')
+//                                        'label' => Module::t('text', 'Title')
                                     ],
                                     [
                                         'attribute' => 'slug',
-                                        'label' => Module::t('text', 'Slug')
+//                                        'label' => Module::t('text', 'Slug')
                                     ],
                                     [
                                         'attribute' => 'description',
-                                        'label' => Module::t('text', 'Description')
+//                                        'label' => Module::t('text', 'Description')
                                     ],
                                 ],
                             ]) ?>
@@ -149,21 +152,21 @@ $langList = \abdualiym\languageClass\Language::langList(Yii::$app->params['langu
         'attributes' => [
             [
                 'attribute' => 'createdBy.username',
-                'label' => Module::t('text', 'Created by')
+//                'label' => Module::t('text', 'Created by')
             ],
             [
                 'attribute' => 'created_at',
                 'format' => 'datetime',
-                'label' => Module::t('text', 'Created at')
+//                'label' => Module::t('text', 'Created at')
             ],
             [
                 'attribute' => 'updatedBy.username',
-                'label' => Module::t('text', 'Updated by')
+//                'label' => Module::t('text', 'Updated by')
             ],
             [
                 'attribute' => 'updated_at',
                 'format' => 'datetime',
-                'label' => Module::t('text', 'Updated at')
+//                'label' => Module::t('text', 'Updated at')
             ],
         ],
     ]) ?>

@@ -86,13 +86,15 @@ $thumb = isset($text->photo) ? $text->getThumbFileUrl('photo', 'thumb') : '';
                             'defaultDate' => date('Y-m-d')
                         ],
                         'options' => ['class' => 'form-control']
-                    ])->label(Module::t('text', 'Date')) ?>
+//                    ])->label(Module::t('text', 'Date'))
+                    ])->label('Date') ?>
                     <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success btn-block']) ?>
                 </div>
             </div>
 
             <div class="box box-default <?= $page ? 'hidden' : '' ?>">
-                <div class="box-header with-border"><?= \abdualiym\text\Module::t('text', 'Photo') ?></div>
+<!--                <div class="box-header with-border">--><?php //= \abdualiym\text\Module::t('text', 'Photo') ?><!--</div>-->
+                <div class="box-header with-border">Photo</div>
                 <div class="box-body">
                     <?= $form->field($model, 'photo')
                         ->label(false)
