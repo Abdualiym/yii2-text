@@ -179,14 +179,10 @@ class Text extends ActiveRecord
                 'class' => ImageUploadBehavior::className(),
                 'attribute' => 'photo',
                 'createThumbsOnRequest' => true,
-//                'filePath' => '@staticRoot/origin/posts/[[id]].[[extension]]',
-                'filePath' => '@frontend/web/app-images/text/[[attribute_id]]/[[id]].[[extension]]', // app/static
-//                'fileUrl' => '@static/origin/posts/[[id]].[[extension]]',
-                'fileUrl' => '@frontendUrl/app-images/text/[[attribute_id]]/[[id]].[[extension]]',// http://static.shop.dev
-//                'thumbPath' => '@staticRoot/cache/posts/[[profile]]_[[id]].[[extension]]',
-                'thumbPath' => '@frontend/web/app-temp/text/cache/[[attribute_id]]/[[profile]]_[[id]].[[extension]]',
-//                'thumbUrl' => '@static/cache/posts/[[profile]]_[[id]].[[extension]]',
-                'thumbUrl' => '@frontendUrl/app-temp/text/cache/[[attribute_id]]/[[profile]]_[[id]].[[extension]]',
+                'filePath' => '@staticRoot/app/text/[[attribute_id]]/[[id]].[[extension]]',
+                'fileUrl' => '@staticUrl/app/text/[[attribute_id]]/[[id]].[[extension]]',
+                'thumbPath' => '@staticRoot/app/cache/text/[[attribute_id]]/[[profile]]_[[id]].[[extension]]',
+                'thumbUrl' => '@staticUrl/app/cache/text/[[attribute_id]]/[[profile]]_[[id]].[[extension]]',
                 'thumbs' => [
                     'admin' => ['width' => 100, 'height' => 70],
                     'thumb' => ['width' => 640, 'height' => 480],

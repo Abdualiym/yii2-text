@@ -95,11 +95,11 @@ $langList = \abdualiym\languageClass\Language::langList(Yii::$app->params['langu
                                 'attributes' => [
                                     [
                                         'attribute' => 'name',
-                                        'label' => Module::t('text', 'Title')
+                                        'label' => Yii::t('text', 'Title')
                                     ],
                                     [
                                         'attribute' => 'slug',
-                                        'label' => Module::t('text', 'Slug')
+                                        'label' => Yii::t('text', 'Slug')
                                     ],
                                 ],
                             ]) ?>
@@ -115,21 +115,21 @@ $langList = \abdualiym\languageClass\Language::langList(Yii::$app->params['langu
         'attributes' => [
             [
                 'attribute' => 'createdBy.username',
-                'label' => Module::t('text', 'Created by')
+                'label' => Yii::t('text', 'Created by')
             ],
             [
                 'attribute' => 'created_at',
                 'format' => 'datetime',
-                'label' => Module::t('text', 'Created at')
+                'label' => Yii::t('text', 'Created at')
             ],
             [
                 'attribute' => 'updatedBy.username',
-                'label' => Module::t('text', 'Updated by')
+                'label' => Yii::t('text', 'Updated by')
             ],
             [
                 'attribute' => 'updated_at',
                 'format' => 'datetime',
-                'label' => Module::t('text', 'Updated at')
+                'label' => Yii::t('text', 'Updated at')
             ],
         ],
     ]) ?>

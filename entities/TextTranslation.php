@@ -3,7 +3,7 @@
 namespace abdualiym\text\entities;
 
 use abdualiym\languageClass\Language;
-use domain\modules\menu\entities\Menu;
+use abdualiym\menu\entities\Menu;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\Html;

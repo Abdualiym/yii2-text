@@ -10,7 +10,7 @@ use yii\helpers\Html;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 
-$this->title = \abdualiym\text\Module::t('text', $page ? 'Pages' : 'Articles');
+$this->title = Yii::t('text', $page ? 'Pages' : 'Articles');
 $this->params['breadcrumbs'][] = $this->title;
 
 $columns = [];
@@ -25,7 +25,7 @@ if (!$page) {
     $columns[] =
         [
             'attribute' => 'category_id',
-            'label' => \abdualiym\text\Module::t('text', 'Category'),
+            'label' => Yii::t('text', 'Category'),
             'value' => function (Text $model) {
                 return $model->category ? $model->category->translations[0]['name'] : 'No';
             },
@@ -33,7 +33,7 @@ if (!$page) {
     $columns[] =
         [
             'attribute' => 'date',
-            'label' => \abdualiym\text\Module::t('text', 'Date'),
+            'label' => Yii::t('text', 'Date'),
             'format' => 'date',
         ];
 }

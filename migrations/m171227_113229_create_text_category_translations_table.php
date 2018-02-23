@@ -21,7 +21,7 @@ class m171227_113229_create_text_category_translations_table extends Migration
             'name' => $this->string()->notNull(),
             'slug' => $this->string()->notNull(),
             'title' => $this->string(),
-            'description' => $this->text(),
+            'description' => 'MEDIUMTEXT',
             'meta_json' => 'JSON NOT NULL',
         ], $tableOptions);
 
