@@ -32,8 +32,9 @@ class TextMetaFields extends ActiveRecord
         return $meta;
     }
 
-    public function edit($lang_id, $key, $value)
+    public function edit($text_id, $lang_id, $key, $value)
     {
+        $this->text_id = $text_id;
         $this->lang_id = $lang_id;
         $this->key = $key;
         $this->value = $value;

@@ -178,7 +178,14 @@ $langList = \abdualiym\languageClass\Language::langList(Yii::$app->params['langu
                 'filterModel' => $searchMetaFieldModel,
                 'columns' => [
                     ['class' => \yii\grid\SerialColumn::class],
-                    'lang_id',
+                    [
+                        'attribute' => 'lang_id',
+                        'value' => function ($model) {
+                            $langList = \abdualiym\languageClass\Language::langList(Yii::$app->params['languages'], true);
+                            return $model->lang_id ? $langList[$model->lang_id]['title'] : 'Для всех языков';
+                        },
+                        'label' => 'Язык'
+                    ],
                     'key',
                     'value',
                     [
@@ -191,10 +198,13 @@ $langList = \abdualiym\languageClass\Language::langList(Yii::$app->params['langu
                                 ]);
                             },
                             'delete' => function ($url, $model, $key) {
+                                global $page;
                                 return Html::a('<span class="fa fa-times-circle"></span>',
                                     [
                                         'text/meta-delete',
-                                        'id' => $model->id
+                                        'id' => $model->id,
+                                        'text_id' => $model->text_id,
+                                        'page' => $page
                                     ],
                                     [
                                         'options' => ['target' => '_blank'],
@@ -214,7 +224,7 @@ $langList = \abdualiym\languageClass\Language::langList(Yii::$app->params['langu
 
     <?php $form = ActiveForm::begin(['action' => ['meta-create', 'id' => $text->id]]); ?>
     <?= $form->errorSummary($meta) ?>
-    <div class="box box-default <?= $page ? 'hidden' : '' ?>">
+    <div class="box box-default">
         <div class="box-header with-border">Добавить новую</div>
         <div class="box-body">
             <div class="row">

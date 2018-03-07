@@ -10,6 +10,7 @@ use abdualiym\text\forms\TextMetaFieldForm;
 use abdualiym\text\repositories\MetaFieldRepository;
 use abdualiym\text\repositories\TextMetaFieldRepository;
 use abdualiym\text\repositories\TextTranslationRepository;
+use yii\helpers\VarDumper;
 
 class TextMetaFieldManageService
 {
@@ -43,6 +44,7 @@ class TextMetaFieldManageService
         $meta = $this->metaFields->get($id);
 
         $meta->edit(
+            $form->text_id,
             $form->lang_id,
             $form->key,
             $form->value

@@ -2,7 +2,9 @@
 
 namespace abdualiym\text\controllers;
 
+use abdualiym\text\entities\Meta;
 use abdualiym\text\entities\Text;
+use abdualiym\text\entities\TextMetaFields;
 use abdualiym\text\forms\TextForm;
 use abdualiym\text\forms\TextMetaFieldForm;
 use abdualiym\text\forms\TextMetaFiledSearch;
@@ -198,23 +200,24 @@ class TextController extends Controller implements ViewContextInterface
      * @param integer $id
      * @return mixed
      */
-    public function actionMetaUpdate($id, $page = false)
+    public function actionMetaUpdate($id, $page = true)
     {
-        $text = $this->findModel($id);
-        $form = new TextForm($text);
-        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
+        $meta = $this->findMetaModel($id);
+        $form = new TextMetaFieldForm($meta);
 
+        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
             try {
-                $this->service->edit($text->id, $form);
-                return $this->redirect(['view', 'id' => $text->id, 'page' => $page]);
-            } catch (\DomainException $e) {
+                $this->metaService->edit($id, $form);
+                return $this->redirect(['view', 'id' => $meta->text_id, 'page' => $page]);
+            } catch
+            (\DomainException $e) {
                 Yii::$app->errorHandler->logException($e);
                 Yii::$app->session->setFlash('error', $e->getMessage());
             }
         }
         return $this->render('meta-update', [
             'model' => $form,
-            'text' => $text,
+            'meta' => $meta,
             'page' => $page,
         ]);
     }
@@ -223,14 +226,14 @@ class TextController extends Controller implements ViewContextInterface
      * @param integer $id
      * @return mixed
      */
-    public function actionMetaDelete($id)
+    public function actionMetaDelete($id, $text_id, $page = true)
     {
         try {
-            $this->service->remove($id);
+            $this->metaService->remove($id);
         } catch (\DomainException $e) {
             Yii::$app->session->setFlash('error', $e->getMessage());
         }
-        return $this->redirect(['index']);
+        return $this->redirect(['view', 'id' => $text_id, 'page' => $page]);
     }
 
 
@@ -245,5 +248,13 @@ class TextController extends Controller implements ViewContextInterface
             return $model;
         }
         throw new NotFoundHttpException('The requested text does not exist.');
+    }
+
+    protected function findMetaModel($id): TextMetaFields
+    {
+        if (($model = TextMetaFields::findOne($id)) !== null) {
+            return $model;
+        }
+        throw new NotFoundHttpException('The requested text meta field does not exist.');
     }
 }
