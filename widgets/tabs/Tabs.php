@@ -35,6 +35,7 @@ class Tabs extends Widget
                 $q->where(['lang_id' => $l['id']]);
             }])
             ->limit(6)
+            ->orderBy('date DESC')
             ->asArray()
             ->all();
         foreach ($categories as $key => $category) {
