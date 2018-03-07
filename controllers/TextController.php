@@ -4,8 +4,11 @@ namespace abdualiym\text\controllers;
 
 use abdualiym\text\entities\Text;
 use abdualiym\text\forms\TextForm;
+use abdualiym\text\forms\TextMetaFieldForm;
+use abdualiym\text\forms\TextMetaFiledSearch;
 use abdualiym\text\forms\TextSearch;
 use abdualiym\text\services\TextManageService;
+use abdualiym\text\services\TextMetaFieldManageService;
 use Yii;
 use yii\base\ViewContextInterface;
 use yii\filters\VerbFilter;
@@ -15,11 +18,13 @@ use yii\web\NotFoundHttpException;
 class TextController extends Controller implements ViewContextInterface
 {
     private $service;
+    private $metaService;
 
-    public function __construct($id, $module, TextManageService $service, $config = [])
+    public function __construct($id, $module, TextManageService $service, TextMetaFieldManageService $metaService, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->service = $service;
+        $this->metaService = $metaService;
     }
 
     public function behaviors(): array
@@ -61,9 +66,15 @@ class TextController extends Controller implements ViewContextInterface
      */
     public function actionView($id, $page = false)
     {
+        $searchMetaFieldsModel = new TextMetaFiledSearch();
+        $metaFieldProvider = $searchMetaFieldsModel->search(Yii::$app->request->queryParams);
+
         return $this->render('view', [
             'text' => $this->findModel($id),
             'page' => $page,
+            'meta' => new TextMetaFieldForm(),
+            'searchMetaFieldModel' => $searchMetaFieldsModel,
+            'metaFieldProvider' => $metaFieldProvider
         ]);
     }
 
@@ -156,6 +167,72 @@ class TextController extends Controller implements ViewContextInterface
         }
         return $this->redirect(['view', 'id' => $id]);
     }
+
+    ########################## Text Meta Fields #################
+
+    /**
+     * @return mixed
+     */
+    public function actionMetaCreate($id, $page = false)
+    {
+        $form = new TextMetaFieldForm();
+
+        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
+            try {
+                $meta = $this->metaService->create($form);
+//                return $this->redirect(['view', 'id' => $meta->text_id, 'page' => $page]);
+            } catch (\DomainException $e) {
+                Yii::$app->errorHandler->logException($e);
+                Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+        }
+
+        return $this->redirect(['view', 'id' => $id, 'page' => $page]);
+//        return $this->render('create', [
+//            'model' => $form,
+//            'page' => $page,
+//        ]);
+    }
+
+    /**
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionMetaUpdate($id, $page = false)
+    {
+        $text = $this->findModel($id);
+        $form = new TextForm($text);
+        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
+
+            try {
+                $this->service->edit($text->id, $form);
+                return $this->redirect(['view', 'id' => $text->id, 'page' => $page]);
+            } catch (\DomainException $e) {
+                Yii::$app->errorHandler->logException($e);
+                Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+        }
+        return $this->render('meta-update', [
+            'model' => $form,
+            'text' => $text,
+            'page' => $page,
+        ]);
+    }
+
+    /**
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionMetaDelete($id)
+    {
+        try {
+            $this->service->remove($id);
+        } catch (\DomainException $e) {
+            Yii::$app->session->setFlash('error', $e->getMessage());
+        }
+        return $this->redirect(['index']);
+    }
+
 
     /**
      * @param integer $id
