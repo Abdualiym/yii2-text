@@ -46,19 +46,23 @@ class TextForm extends CompositeForm
         ];
     }
 
-    public function categoriesList(): array
+    public function categoriesList($allLanguages = false): array
     {
         return ArrayHelper::map(
             Category::find()->with('translations')->asArray()->all(), 'id', function (array $category) {
-            return $category['translations'][0]['name'];
+            return $allLanguages 
+            ? $category['translations']
+            : $category['translations'][0]['name'];
         });
     }
 
-    public function textsList(): array
+    public function textsList($allLanguages = false): array
     {
         return ArrayHelper::map(
             Text::find()->with('translations')->asArray()->all(), 'id', function (array $text) {
-            return $text['translations'][0]['title'];
+            return $allLanguages
+            ? $text['translations']
+            : $text['translations'][0]['title'];
         });
     }
 
