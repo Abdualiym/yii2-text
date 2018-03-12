@@ -35,7 +35,7 @@ class TextMetaFieldForm extends Model
             [['value'], 'string'],
             [['lang_id'], 'integer'],
             ['text_id', 'exist', 'targetClass' => Text::class, 'targetAttribute' => 'id'],
-            ['key', 'unique', 'targetClass' => TextMetaFields::class, 'filter' => $this->key ? ['<>', 'key', $this->key] : null]
+//            ['key', 'unique', 'targetClass' => TextMetaFields::class, 'filter' => $this->key ? ['<>', 'key', $this->key] : null]
         ];
     }
 
