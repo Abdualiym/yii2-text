@@ -68,7 +68,7 @@ class TextController extends Controller implements ViewContextInterface
      */
     public function actionView($id, $page = false)
     {
-        $searchMetaFieldsModel = new TextMetaFiledSearch();
+        $searchMetaFieldsModel = new TextMetaFiledSearch($id);
         $metaFieldProvider = $searchMetaFieldsModel->search(Yii::$app->request->queryParams);
 
         return $this->render('view', [

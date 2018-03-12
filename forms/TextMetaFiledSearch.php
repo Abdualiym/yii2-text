@@ -12,6 +12,13 @@ class TextMetaFiledSearch extends Model
     public $lang_id;
     public $key;
     public $value;
+    public $text_id;
+
+    public function __construct($id, array $config = [])
+    {
+        parent::__construct($config);
+        $this->text_id = $id;
+    }
 
     public function rules(): array
     {
@@ -27,7 +34,7 @@ class TextMetaFiledSearch extends Model
      */
     public function search(array $params): ActiveDataProvider
     {
-        $query = TextMetaFields::find();
+        $query = TextMetaFields::find()->where(['text_id' => $this->text_id]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
