@@ -124,6 +124,11 @@ class Text extends ActiveRecord
         return $this->hasMany(TextTranslation::class, ['parent_id' => 'id']);
     }
 
+    public function getMetaFields(): ActiveQuery
+    {
+        return $this->hasMany(TextMetaFields::class, ['text_id' => 'id']);
+    }
+
     public function getCategory(): ActiveQuery
     {
         return $this->hasOne(Category::class, ['id' => 'category_id']);
