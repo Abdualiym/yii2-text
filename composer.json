@@ -10,7 +10,7 @@
     "categories"
   ],
   "homepage": "http://www.infosystems.uz/",
-  "type": "project",
+  "type": "yii2-extension",
   "license": "BSD-3-Clause",
   "authors": [
     {
@@ -37,13 +37,7 @@
       "abdualiym\\text\\": ""
     }
   },
-  "config": {
-    "process-timeout": 1800
-  },
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "https://asset-packagist.org"
-    }
-  ]
+  "extra": {
+    "bootstrap": "abdualiym\\text\\Bootstrap"
+  }
 }
