@@ -5,6 +5,7 @@ namespace abdualiym\text\controllers;
 use abdualiym\text\entities\Meta;
 use abdualiym\text\entities\Text;
 use abdualiym\text\entities\TextMetaFields;
+use abdualiym\text\forms\PhotosForm;
 use abdualiym\text\forms\TextForm;
 use abdualiym\text\forms\TextMetaFieldForm;
 use abdualiym\text\forms\TextMetaFiledSearch;
@@ -38,6 +39,9 @@ class TextController extends Controller implements ViewContextInterface
                     'delete' => ['POST'],
                     'activate' => ['POST'],
                     'draft' => ['POST'],
+                    'delete-photo' => ['POST'],
+                    'move-photo-up' => ['POST'],
+                    'move-photo-down' => ['POST'],
                 ],
             ],
         ];
@@ -71,12 +75,26 @@ class TextController extends Controller implements ViewContextInterface
         $searchMetaFieldsModel = new TextMetaFiledSearch($id);
         $metaFieldProvider = $searchMetaFieldsModel->search(Yii::$app->request->queryParams);
 
+        $text = $this->findModel($id);
+
+        $photosForm = new PhotosForm();
+        if ($photosForm->load(Yii::$app->request->post()) && $photosForm->validate()) {
+            try {
+                $this->service->addPhotos($text->id, $photosForm);
+                return $this->redirect(['view', 'id' => $text->id, 'page' => $page]);
+            } catch (\DomainException $e) {
+                Yii::$app->errorHandler->logException($e);
+                Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+        }
+
         return $this->render('view', [
-            'text' => $this->findModel($id),
+            'text' => $text,
             'page' => $page,
             'meta' => new TextMetaFieldForm(),
             'searchMetaFieldModel' => $searchMetaFieldsModel,
-            'metaFieldProvider' => $metaFieldProvider
+            'metaFieldProvider' => $metaFieldProvider,
+            'photosForm' => $photosForm,
         ]);
     }
 
@@ -169,6 +187,46 @@ class TextController extends Controller implements ViewContextInterface
         }
         return $this->redirect(['view', 'id' => $id]);
     }
+
+    ########################## Text Photos #################
+
+    /**
+     * @param integer $id
+     * @param $photo_id
+     * @return mixed
+     */
+    public function actionDeletePhoto($id, $photo_id, $page = false)
+    {
+        try {
+            $this->service->removePhoto($id, $photo_id);
+        } catch (\DomainException $e) {
+            Yii::$app->session->setFlash('error', $e->getMessage());
+        }
+        return $this->redirect(['view', 'page' => $page, 'id' => $id, '#' => 'photos']);
+    }
+
+    /**
+     * @param integer $id
+     * @param $photo_id
+     * @return mixed
+     */
+    public function actionMovePhotoUp($id, $photo_id, $page = false)
+    {
+        $this->service->movePhotoUp($id, $photo_id);
+        return $this->redirect(['view', 'page' => $page, 'id' => $id, '#' => 'photos']);
+    }
+
+    /**
+     * @param integer $id
+     * @param $photo_id
+     * @return mixed
+     */
+    public function actionMovePhotoDown($id, $photo_id, $page = false)
+    {
+        $this->service->movePhotoDown($id, $photo_id);
+        return $this->redirect(['view', 'page' => $page, 'id' => $id, '#' => 'photos']);
+    }
+
 
     ########################## Text Meta Fields #################
 

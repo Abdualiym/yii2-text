@@ -11,12 +11,12 @@ use yii\web\UploadedFile;
 
 /**
  * @property TextTranslationForm $translations
+ * @property PhotosForm $photos
  */
 class TextForm extends CompositeForm
 {
     public $category_id;
     public $date;
-    public $photo;
     private $_text;
 
     public function __construct(Text $text = null, $config = [])
@@ -32,6 +32,7 @@ class TextForm extends CompositeForm
             $this->translations = array_map(function () {
                 return new TextTranslationForm();
             }, Language::langList(\Yii::$app->params['languages']));
+            $this->photos = new PhotosForm();
         }
         parent::__construct($config);
     }
@@ -42,7 +43,6 @@ class TextForm extends CompositeForm
             [['date'], 'required'],
             [['category_id'], 'integer'],
             [['date'], 'string', 'max' => 12],
-            [['photo'], 'image'],
         ];
     }
 
@@ -64,16 +64,6 @@ class TextForm extends CompositeForm
 
     public function internalForms(): array
     {
-        return ['translations'];
+        return ['translations', 'photos'];
     }
-
-    public function beforeValidate(): bool
-    {
-        if (parent::beforeValidate()) {
-            $this->photo = UploadedFile::getInstance($this, 'photo');
-            return true;
-        }
-        return false;
-    }
-
 }

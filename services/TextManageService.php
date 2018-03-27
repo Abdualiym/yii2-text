@@ -4,6 +4,7 @@ namespace abdualiym\text\services;
 
 
 use abdualiym\text\entities\Text;
+use abdualiym\text\forms\PhotosForm;
 use abdualiym\text\forms\TextForm;
 use abdualiym\text\repositories\TextRepository;
 use abdualiym\text\repositories\TextTranslationRepository;
@@ -35,8 +36,8 @@ class TextManageService
             $text->setTranslation($translation->lang_id, $translation->title, $translation->description, $translation->content, $translation->meta);
         }
 
-        if ($form->photo) {
-            $text->setPhoto($form->photo);
+        foreach ($form->photos->files as $file) {
+            $text->addPhoto($file);
         }
 
         $this->texts->save($text);
@@ -57,12 +58,10 @@ class TextManageService
             $text->setTranslation($translation->lang_id, $translation->title, $translation->description, $translation->content, $translation->meta);
         }
 
-        if ($form->photo) {
-            $text->setPhoto($form->photo);
-        }
-
         $this->texts->save($text);
     }
+
+    ##########     Status     ##########
 
     public function activate($id)
     {
@@ -75,6 +74,38 @@ class TextManageService
     {
         $text = $this->texts->get($id);
         $text->draft();
+        $this->texts->save($text);
+    }
+
+    ##########     Photos     ##########
+
+    public function addPhotos($id, PhotosForm $form)
+    {
+        $text = $this->texts->get($id);
+        foreach ($form->files as $file) {
+            $text->addPhoto($file);
+        }
+        $this->texts->save($text);
+    }
+
+    public function movePhotoUp($id, $photoId)
+    {
+        $text = $this->texts->get($id);
+        $text->movePhotoUp($photoId);
+        $this->texts->save($text);
+    }
+
+    public function movePhotoDown($id, $photoId)
+    {
+        $text = $this->texts->get($id);
+        $text->movePhotoDown($photoId);
+        $this->texts->save($text);
+    }
+
+    public function removePhoto($id, $photoId)
+    {
+        $text = $this->texts->get($id);
+        $text->removePhoto($photoId);
         $this->texts->save($text);
     }
 

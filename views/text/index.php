@@ -15,9 +15,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
 $columns = [];
 if (!$page) {
+//    $columns[] = [
+//        'value' => function (Text $model) {
+//            return $model->photo ? Html::img($model->getThumbFileUrl('photo', 'admin')) : null;
+//        },
+//        'format' => 'raw',
+//        'contentOptions' => ['style' => 'width: 100px'],
+//    ];
     $columns[] = [
         'value' => function (Text $model) {
-            return $model->photo ? Html::img($model->getThumbFileUrl('photo', 'admin')) : null;
+            return $model->mainPhoto ? Html::img($model->mainPhoto->getThumbFileUrl('file', 'admin')) : null;
         },
         'format' => 'raw',
         'contentOptions' => ['style' => 'width: 100px'],

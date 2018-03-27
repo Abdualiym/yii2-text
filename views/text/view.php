@@ -74,12 +74,7 @@ $langList = \abdualiym\languageClass\Language::langList(Yii::$app->params['langu
             <div class="box">
                 <div class="box-header with-border"><?= Yii::t('text', 'Photo') ?></div>
                 <div class="box-body">
-                    <?php if ($text->photo): ?>
-                        <?= Html::a(Html::img($text->getThumbFileUrl('photo', 'thumb')), $text->getUploadedFileUrl('photo'), [
-                            'class' => 'thumbnail',
-                            'target' => '_blank'
-                        ]) ?>
-                    <?php endif; ?>
+                    PHOTO...
                 </div>
             </div>
         </div>
@@ -169,6 +164,60 @@ $langList = \abdualiym\languageClass\Language::langList(Yii::$app->params['langu
             ],
         ],
     ]) ?>
+
+
+    <div class="box" id="photos">
+        <div class="box-header with-border">Photos</div>
+        <div class="box-body">
+
+            <div class="row">
+                <?php foreach ($text->photos as $photo): ?>
+                    <div class="col-md-2 col-xs-3" style="text-align: center">
+                        <div class="btn-group">
+                            <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span>', ['move-photo-up', 'id' => $text->id, 'photo_id' => $photo->id], [
+                                'class' => 'btn btn-default',
+                                'data-method' => 'post',
+                            ]); ?>
+                            <?= Html::a('<span class="glyphicon glyphicon-remove"></span>', ['delete-photo', 'id' => $text->id, 'photo_id' => $photo->id], [
+                                'class' => 'btn btn-default',
+                                'data-method' => 'post',
+                                'data-confirm' => 'Remove photo?',
+                            ]); ?>
+                            <?= Html::a('<span class="glyphicon glyphicon-arrow-right"></span>', ['move-photo-down', 'id' => $text->id, 'photo_id' => $photo->id], [
+                                'class' => 'btn btn-default',
+                                'data-method' => 'post',
+                            ]); ?>
+                        </div>
+                        <div>
+                            <?= Html::a(
+                                Html::img($photo->getThumbFileUrl('file', 'thumb')),
+                                $photo->getUploadedFileUrl('file'),
+                                ['class' => 'thumbnail', 'target' => '_blank']
+                            ) ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+
+            <?php $form = ActiveForm::begin([
+                'options' => ['enctype' => 'multipart/form-data'],
+            ]); ?>
+
+            <?= $form->field($photosForm, 'files[]')->label(false)->widget(\kartik\file\FileInput::class, [
+                'options' => [
+                    'accept' => 'image/*',
+                    'multiple' => true,
+                ]
+            ]) ?>
+
+            <div class="form-group">
+                <?= Html::submitButton('Upload', ['class' => 'btn btn-success']) ?>
+            </div>
+
+            <?php ActiveForm::end(); ?>
+
+        </div>
+    </div>
 
 
     <div class="box">

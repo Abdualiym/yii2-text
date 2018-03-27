@@ -23,7 +23,6 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property boolean $is_article
  * @property integer $status
  * @property integer $date
- * @property string $photo
  * @property integer $views_count
  * @property integer $created_at
  * @property integer $created_by
@@ -31,13 +30,12 @@ use yiidreamteam\upload\ImageUploadBehavior;
  * @property integer $updated_by
  *
  * @property TextTranslation[] $translations
+ * @property Photo[] $photos
  */
 class Text extends ActiveRecord
 {
     const STATUS_DRAFT = 0;
     const STATUS_ACTIVE = 1;
-
-//    public $meta;
 
     public static function create($category_id, $date): self
     {
@@ -54,11 +52,6 @@ class Text extends ActiveRecord
         $this->date = $date;
     }
 
-
-    public function setPhoto(UploadedFile $photo)
-    {
-        $this->photo = $photo;
-    }
 
     // Status
 
@@ -89,7 +82,75 @@ class Text extends ActiveRecord
     }
 
 
-// Translations
+    // Photos
+
+    public function addPhoto(UploadedFile $file)
+    {
+        $photos = $this->photos;
+        $photos[] = Photo::create($file);
+        $this->updatePhotos($photos);
+    }
+
+    public function removePhoto($id)
+    {
+        $photos = $this->photos;
+        foreach ($photos as $i => $photo) {
+            if ($photo->isIdEqualTo($id)) {
+                unset($photos[$i]);
+                $this->updatePhotos($photos);
+                return;
+            }
+        }
+        throw new \DomainException('Photo is not found.');
+    }
+
+    public function removePhotos()
+    {
+        $this->updatePhotos([]);
+    }
+
+    public function movePhotoUp($id)
+    {
+        $photos = $this->photos;
+        foreach ($photos as $i => $photo) {
+            if ($photo->isIdEqualTo($id)) {
+                if ($prev = $photos[$i - 1] ?? null) {
+                    $photos[$i - 1] = $photo;
+                    $photos[$i] = $prev;
+                    $this->updatePhotos($photos);
+                }
+                return;
+            }
+        }
+        throw new \DomainException('Photo is not found.');
+    }
+
+    public function movePhotoDown($id)
+    {
+        $photos = $this->photos;
+        foreach ($photos as $i => $photo) {
+            if ($photo->isIdEqualTo($id)) {
+                if ($next = $photos[$i + 1] ?? null) {
+                    $photos[$i] = $next;
+                    $photos[$i + 1] = $photo;
+                    $this->updatePhotos($photos);
+                }
+                return;
+            }
+        }
+        throw new \DomainException('Photo is not found.');
+    }
+
+    private function updatePhotos(array $photos)
+    {
+        foreach ($photos as $i => $photo) {
+            $photo->setSort($i);
+        }
+        $this->photos = $photos;
+        $this->populateRelation('mainPhoto', reset($photos));
+    }
+
+    // Translations
 
     public function setTranslation($lang_id, $title, $description, $content, $meta)
     {
@@ -144,6 +205,16 @@ class Text extends ActiveRecord
         return $this->hasOne(User::class, ['id' => 'updated_by']);
     }
 
+    public function getPhotos(): ActiveQuery
+    {
+        return $this->hasMany(Photo::class, ['text_id' => 'id'])->orderBy('sort');
+    }
+
+    public function getMainPhoto(): ActiveQuery
+    {
+        return $this->hasOne(Photo::class, ['id' => 'main_photo_id']);
+    }
+
     ####################################
 
     public static function tableName(): string
@@ -178,23 +249,7 @@ class Text extends ActiveRecord
             ],
             [
                 'class' => SaveRelationsBehavior::className(),
-                'relations' => ['translations'],
-            ],
-            [
-                'class' => ImageUploadBehavior::className(),
-                'attribute' => 'photo',
-                'createThumbsOnRequest' => true,
-                'filePath' => '@staticRoot/app/text/[[attribute_id]]/[[id]].[[extension]]',
-                'fileUrl' => '@staticUrl/app/text/[[attribute_id]]/[[id]].[[extension]]',
-                'thumbPath' => '@staticRoot/app/cache/text/[[attribute_id]]/[[profile]]_[[id]].[[extension]]',
-                'thumbUrl' => '@staticUrl/app/cache/text/[[attribute_id]]/[[profile]]_[[id]].[[extension]]',
-                'thumbs' => [
-                    'admin' => ['width' => 100, 'height' => 70],
-                    'thumb' => ['width' => 640, 'height' => 480],
-                    'category_list' => ['width' => 1000, 'height' => 150],
-                    'widget_list' => ['width' => 228, 'height' => 228],
-//                    'origin' => ['processor' => [new WaterMarker(1024, 768, '@frontend/web/images/img/cbg.png'), 'process']],
-                ],
+                'relations' => ['translations', 'photos'],
             ],
         ];
     }
@@ -204,6 +259,26 @@ class Text extends ActiveRecord
         return [
             self::SCENARIO_DEFAULT => self::OP_ALL,
         ];
+    }
+
+    public function beforeDelete(): bool
+    {
+        if (parent::beforeDelete()) {
+            foreach ($this->photos as $photo) {
+                $photo->delete();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        $related = $this->getRelatedRecords();
+        parent::afterSave($insert, $changedAttributes);
+        if (array_key_exists('mainPhoto', $related)) {
+            $this->updateAttributes(['main_photo_id' => $related['mainPhoto'] ? $related['mainPhoto']->id : null]);
+        }
     }
 
     public static function find(): TextQuery

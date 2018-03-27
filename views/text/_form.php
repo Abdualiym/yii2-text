@@ -1,7 +1,6 @@
 <?php
 
 use abdualiym\languageClass\Language;
-use abdualiym\text\Module;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -90,25 +89,21 @@ $thumb = isset($text->photo) ? $text->getThumbFileUrl('photo', 'thumb') : '';
                 </div>
             </div>
 
-            <div class="box box-default <?= $page ? 'hidden' : '' ?>">
-                <div class="box-header with-border"><?= Yii::t('text', 'Photo') ?></div>
-                <div class="box-body">
-                    <?= $form->field($model, 'photo')
-                        ->label(false)
-                        ->widget(\kartik\file\FileInput::class, [
-                            'options' => ['accept' => 'image/*'],
-                            'pluginOptions' => [
-                                'previewFileType' => 'image',
-                                'showUpload' => false,
-                                'initialPreview' => [
-                                    '<img src="' . $thumb . '" style="max-height:200px; max-width:210px;">',
-                                ],
-                                'overwriteInitial' => true,
-                                'initialCaption' => $thumb,
-                            ],
+            <?php if (!isset($text)): ?>
+                <div class="box" id="photos">
+                    <div class="box-header with-border">Photos</div>
+                    <div class="box-body">
+                        <?= $form->field($model->photos, 'files[]')->widget(\kartik\file\FileInput::class, [
+                            'options' => [
+                                'accept' => 'image/*',
+                                'multiple' => true,
+                            ]
                         ]) ?>
+                    </div>
                 </div>
-            </div>
+            <?php endif; ?>
+
+
         </div>
     </div>
 
