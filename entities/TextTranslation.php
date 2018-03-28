@@ -73,15 +73,18 @@ class TextTranslation extends ActiveRecord
                 $links = '';
 
                 foreach ($alterTranslation as $k => $alter) {
-                    $links .= ' , '.Html::a(Language::contentExist($alter['lang']['id']), $alter['link'], ['class' => 'btn-link']);
+                    $links .= Html::a(Language::contentExist($alter['lang']['id']), $alter['link'], ['class' => 'btn-link']);
+                    $links .= count($alterTranslation) > $k?', ':'';
                 }
 
                 if (count($alterTranslation) == 1) {
-                    $message = '<p>' . \Yii::t('app', 'Current content is available in this language')
-                        . ' ' . $links . '</p>';
+                    $message = '<p>'
+                        . \Yii::t('app', 'Current content is available in this language',['lang' => $links])
+                        . '</p>';
                 } else {
-                    $message = '<p>' . \Yii::t('app', 'Current content is available in these languages')
-                        . ' ' . $links . '</p>';
+                    $message = '<p>'
+                        . \Yii::t('app', 'Current content is available in these languages',['lang' => $links])
+                        . '</p>';
                 }
                 $message = $alert . $message;
             } else {
