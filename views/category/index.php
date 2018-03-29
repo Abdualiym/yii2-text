@@ -8,7 +8,6 @@ use abdualiym\text\entities\Category;
 use abdualiym\languageClass\Language;
 use Yii;
 
-
 /* @var $this yii\web\View */
 /* @var $searchModel abdualiym\text\forms\CategorySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
