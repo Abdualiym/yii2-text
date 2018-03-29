@@ -1,5 +1,6 @@
 <?php
 
+use abdualiym\menu\components\MenuSlugHelper;
 use abdualiym\languageClass\Language;
 use abdualiym\text\entities\Text;
 use yii\grid\GridView;
@@ -62,7 +63,7 @@ $columns[] =
         'attribute' => 'slug',
         'label' => 'RU',
         'value' => function (Text $model) {
-            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', Yii::$app->params['frontendUrl'] . '/ru' . Html::encode(abdualiym\menu\entities\Menu::getSlug($model->translations[0]['slug'], 'content', $model->id, Language::getLangByPrefix('ru'))), ['target' => '_blank']);
+            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', Yii::$app->params['frontendUrl'] . '/ru' . Html::encode(MenuSlugHelper::getSlug($model->translations[0]['slug'], 'content', $model->id, Language::getLangByPrefix('ru'))), ['target' => '_blank']);
         },
         'format' => 'raw',
     ];
@@ -71,7 +72,7 @@ $columns[] =
         'attribute' => 'slug',
         'label' => 'UZ',
         'value' => function (Text $model) {
-            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', Yii::$app->params['frontendUrl'] . '/uz' . Html::encode(abdualiym\menu\entities\Menu::getSlug($model->translations[1]['slug'], 'content', $model->id, Language::getLangByPrefix('uz'))), ['target' => '_blank']);
+            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', Yii::$app->params['frontendUrl'] . '/uz' . Html::encode(MenuSlugHelper::getSlug($model->translations[1]['slug'], 'content', $model->id, Language::getLangByPrefix('uz'))), ['target' => '_blank']);
         },
         'format' => 'raw',
     ];

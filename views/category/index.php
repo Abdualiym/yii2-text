@@ -3,6 +3,8 @@
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\helpers\Html;
+use abdualiym\menu\components\MenuSlugHelper;
+
 
 /* @var $this yii\web\View */
 /* @var $searchModel abdualiym\text\forms\CategorySearch */
@@ -38,16 +40,16 @@ $feed_with_image = (new \abdualiym\text\forms\CategoryForm())->getAttributeLabel
                     [
                         'attribute' => 'slug',
                         'label' => 'RU',
-                        'value' => function (\abdualiym\text\entities\Category $model) {
-                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', Yii::$app->params['frontendUrl'] . '/ru/' . Html::encode($model->translations[1]['slug']));
+                        'value' => function (Category $model) {
+                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', Yii::$app->params['frontendUrl'] . '/ru' . Html::encode(MenuSlugHelper::getSlug($model->translations[0]['slug'], 'category', $model->id, Language::getLangByPrefix('ru'))), ['target' => '_blank']);
                         },
                         'format' => 'raw',
                     ],
                     [
                         'attribute' => 'slug',
                         'label' => 'UZ',
-                        'value' => function (\abdualiym\text\entities\Category $model) {
-                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', Yii::$app->params['frontendUrl'] . '/en/' . Html::encode($model->translations[0]['slug']));
+                        'value' => function (Category $model) {
+                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', Yii::$app->params['frontendUrl'] . '/uz' . Html::encode(MenuSlugHelper::getSlug($model->translations[1]['slug'], 'category', $model->id, Language::getLangByPrefix('uz'))), ['target' => '_blank']);
                         },
                         'format' => 'raw',
                     ],
