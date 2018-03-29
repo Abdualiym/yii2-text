@@ -4,6 +4,7 @@ use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use abdualiym\menu\components\MenuSlugHelper;
+use \abdualiym\text\entities\Category;
 
 
 /* @var $this yii\web\View */
@@ -32,7 +33,7 @@ $feed_with_image = (new \abdualiym\text\forms\CategoryForm())->getAttributeLabel
                     [
                         'attribute' => 'id',
                         'label' => 'Название',
-                        'value' => function (\abdualiym\text\entities\Category $model) {
+                        'value' => function (Category $model) {
                             return Html::a(Html::encode($model->translations[0]['name']), ['view', 'id' => $model->id]);
                         },
                         'format' => 'raw',
