@@ -50,7 +50,7 @@ class TextForm extends CompositeForm
     {
         return ArrayHelper::map(
             Category::find()->where(['status' => Category::STATUS_ACTIVE])->with('translations')->asArray()->all(), 'id', function (array $category) {
-            return $category['translations']['name'];
+            return $category['translations'];
         });
     }
 
@@ -58,7 +58,7 @@ class TextForm extends CompositeForm
     {
         return ArrayHelper::map(
             Text::find()->where(['status' => Text::STATUS_ACTIVE])->with('translations')->asArray()->all(), 'id', function (array $text) {
-            return $text['translations']['title'];
+            return $text['translations'];
         });
     }
 
