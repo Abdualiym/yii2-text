@@ -8,6 +8,7 @@ use abdualiym\text\entities\Category;
 use abdualiym\languageClass\Language;
 use Yii;
 
+
 /* @var $this yii\web\View */
 /* @var $searchModel abdualiym\text\forms\CategorySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -60,6 +61,14 @@ $feed_with_image = (new \abdualiym\text\forms\CategoryForm())->getAttributeLabel
                         'value' => 'feed_with_image',
                         'format' => 'boolean',
                         'label' => $feed_with_image,
+                    ],
+                    [
+                        'attribute' => 'status',
+                        'label' => Yii::t('text', 'Status'),
+                        'value' => function (Category $model) {
+                            return \abdualiym\text\helpers\TextHelper::statusLabel($model->status);
+                        },
+                        'format' => 'html',
                     ],
                     ['class' => ActionColumn::class],
                 ],

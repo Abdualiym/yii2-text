@@ -71,9 +71,9 @@ $thumb = isset($text->photo) ? $text->getThumbFileUrl('photo', 'thumb') : '';
         <div class="col-md-4">
             <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success btn-block ' . ($page ? '' : 'hidden')]) ?>
             <div class="box box-default <?= $page ? 'hidden' : '' ?>">
-                <div class="box-header with-border">Обшые настройки</div>
+                <div class="box-header with-border">Общие настройки</div>
                 <div class="box-body">
-                    <?= $form->field($model, 'category_id')->dropDownList($model->categoriesList(), ['prompt' => 'No category'])->label('Катагория') ?>
+                    <?= $form->field($model, 'category_id')->dropDownList($model->categoriesList())->label('Категория') ?>
                     <?php $model->date = $model->date ?: date('d.m.Y') ?>
                     <?= $form->field($model, 'date')->widget(\yii\jui\DatePicker::classname(), [
                         'dateFormat' => 'd.MM.yyyy',
@@ -84,21 +84,21 @@ $thumb = isset($text->photo) ? $text->getThumbFileUrl('photo', 'thumb') : '';
                         ],
                         'options' => ['class' => 'form-control']
 //                    ])->label(Yii::t('text', 'Date'))
-                    ])->label('Date') ?>
+                    ])->label('Дата публикаций') ?>
                     <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success btn-block']) ?>
                 </div>
             </div>
 
             <?php if (!isset($text)): ?>
                 <div class="box" id="photos">
-                    <div class="box-header with-border">Photos</div>
+                    <div class="box-header with-border">Фотографий</div>
                     <div class="box-body">
                         <?= $form->field($model->photos, 'files[]')->widget(\kartik\file\FileInput::class, [
                             'options' => [
                                 'accept' => 'image/*',
                                 'multiple' => true,
                             ]
-                        ]) ?>
+                        ])->label('Загрузить фотографий') ?>
                     </div>
                 </div>
             <?php endif; ?>

@@ -44,6 +44,7 @@ if (!$page) {
             'label' => Yii::t('text', 'Date'),
             'format' => 'date',
         ];
+
 }
 $columns[] = [
     'attribute' => 'id',
@@ -58,6 +59,15 @@ $columns[] = [
     },
     'format' => 'raw',
 ];
+$columns[] =
+    [
+        'attribute' => 'status',
+        'label' => Yii::t('text', 'Status'),
+        'value' => function (Text $model) {
+            return \abdualiym\text\helpers\TextHelper::statusLabel($model->status);
+        },
+        'format' => 'html',
+    ];
 $columns[] =
     [
         'attribute' => 'slug',

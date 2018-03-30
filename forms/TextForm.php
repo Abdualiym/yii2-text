@@ -49,16 +49,16 @@ class TextForm extends CompositeForm
     public function categoriesList(): array
     {
         return ArrayHelper::map(
-            Category::find()->with('translations')->asArray()->all(), 'id', function (array $category) {
-            return $category['translations'][0]['name'];
+            Category::find()->where(['status' => Category::STATUS_ACTIVE])->with('translations')->asArray()->all(), 'id', function (array $category) {
+            return $category['translations']['name'];
         });
     }
 
     public function textsList(): array
     {
         return ArrayHelper::map(
-            Text::find()->with('translations')->asArray()->all(), 'id', function (array $text) {
-            return $text['translations'][0]['title'];
+            Text::find()->where(['status' => Text::STATUS_ACTIVE])->with('translations')->asArray()->all(), 'id', function (array $text) {
+            return $text['translations']['title'];
         });
     }
 
