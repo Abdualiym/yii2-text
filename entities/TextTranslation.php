@@ -4,6 +4,7 @@ namespace abdualiym\text\entities;
 
 use abdualiym\languageClass\Language;
 use abdualiym\menu\entities\Menu;
+use abdualiym\menu\components\MenuSlugHelper;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\Html;
@@ -62,7 +63,7 @@ class TextTranslation extends ActiveRecord
                     }
                     $alterTranslation[$k]['link'] = \Yii::$app->params['frontendHostInfo'] . '/'
                         . $alterTranslation[$k]['lang']['prefix']
-                        . Menu::getSlug($tr['slug'], 'content', $tr['parent_id'], $alterTranslation[$k]['lang']);
+                        . MenuSlugHelper::getSlug($tr['slug'], 'content', $tr['parent_id'], $alterTranslation[$k]['lang']);
 
                 }
             }
