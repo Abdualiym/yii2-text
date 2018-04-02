@@ -73,7 +73,7 @@ $thumb = isset($text->photo) ? $text->getThumbFileUrl('photo', 'thumb') : '';
             <div class="box box-default <?= $page ? 'hidden' : '' ?>">
                 <div class="box-header with-border">Общие настройки</div>
                 <div class="box-body">
-                    <?= $form->field($model, 'category_id')->dropDownList($model->categoriesList())->label('Категория') ?>
+                    <?= $form->field($model, 'category_id')->dropDownList($model->categoriesList(true))->label('Категория') ?>
                     <?php $model->date = $model->date ?: date('d.m.Y') ?>
                     <?= $form->field($model, 'date')->widget(\yii\jui\DatePicker::classname(), [
                         'dateFormat' => 'd.MM.yyyy',
