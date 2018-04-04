@@ -58,7 +58,7 @@ $feed_with_image = (new \abdualiym\text\forms\CategoryForm())->getAttributeLabel
                     [
                         'attribute' => 'feed_with_image',
                         'value' => function ($model) {
-                            return $model->categoryType();
+                            return $model->getCategoryType();
                         },
                         'format' => 'boolean',
                         'label' => $feed_with_image,
