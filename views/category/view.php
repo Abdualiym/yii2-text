@@ -1,6 +1,5 @@
 <?php
 
-use abdualiym\text\Module;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -49,6 +48,9 @@ $langList = \abdualiym\languageClass\Language::langList(Yii::$app->params['langu
             ],
             [
                 'attribute' => 'feed_with_image',
+                'value' => function ($model) {
+                    return $model->categoryType();
+                },
                 'format' => 'boolean',
                 'label' => (new \abdualiym\text\forms\CategoryForm())->getAttributeLabel('feed_with_image')
             ],

@@ -49,6 +49,18 @@ class CategoryForm extends CompositeForm
         ];
     }
 
+    public static function getCategoryTypes($id = null)
+    {
+        $types = [
+            0 => 'по умолчанию',
+            1 => 'без даты',
+            2 => 'без списка',
+            3 => 'Галерея'
+        ];
+
+        return $id ? $types[$id] : $types;
+    }
+
     public function internalForms()
     {
         return ['translations'];

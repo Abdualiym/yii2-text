@@ -33,7 +33,7 @@ foreach ($model->translations as $i => $translation) {
         <div class="box-header with-border">Категория</div>
         <div class="box-body">
             <?= $form->errorSummary($model) ?>
-            <?= $form->field($model, 'feed_with_image')->dropDownList([0 => 'по умолчанию', 1 => 'без даты', 2 => 'без списка']) ?>
+            <?= $form->field($model, 'feed_with_image')->dropDownList($model::categoryTypes()) ?>
         </div>
 
         <div class="box-body">

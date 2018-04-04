@@ -2,6 +2,7 @@
 
 namespace abdualiym\text\entities;
 
+use abdualiym\text\forms\CategoryForm;
 use backend\entities\User;
 use abdualiym\text\entities\queries\CategoryQuery;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
@@ -118,6 +119,14 @@ class Category extends ActiveRecord
 
     ####################################
 
+    public function getCategoryType()
+    {
+        return CategoryForm::getCategoryTypes($this->id);
+    }
+
+
+    ####################################
+
     public static function tableName(): string
     {
         return '{{%text_categories}}';
@@ -126,10 +135,10 @@ class Category extends ActiveRecord
     public function behaviors(): array
     {
         return [
-            TimestampBehavior::className(),
-            BlameableBehavior::className(),
+            TimestampBehavior::class,
+            BlameableBehavior::class,
             [
-                'class' => SaveRelationsBehavior::className(),
+                'class' => SaveRelationsBehavior::class,
                 'relations' => ['translations'],
             ],
         ];
