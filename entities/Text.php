@@ -225,10 +225,10 @@ class Text extends ActiveRecord
     public function behaviors(): array
     {
         return [
-            TimestampBehavior::className(),
-            BlameableBehavior::className(),
+            TimestampBehavior::class,
+            BlameableBehavior::class,
             [
-                'class' => AttributeBehavior::className(),
+                'class' => AttributeBehavior::class,
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_INSERT => ['date'],
                     ActiveRecord::EVENT_BEFORE_UPDATE => ['date'],
@@ -238,7 +238,7 @@ class Text extends ActiveRecord
                 },
             ],
             [
-                'class' => AttributeBehavior::className(),
+                'class' => AttributeBehavior::class,
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_INSERT => ['is_article'],
                     ActiveRecord::EVENT_BEFORE_UPDATE => ['is_article'],
@@ -248,7 +248,7 @@ class Text extends ActiveRecord
                 },
             ],
             [
-                'class' => SaveRelationsBehavior::className(),
+                'class' => SaveRelationsBehavior::class,
                 'relations' => ['translations', 'photos'],
             ],
         ];
