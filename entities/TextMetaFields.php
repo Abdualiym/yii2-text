@@ -43,9 +43,9 @@ class TextMetaFields extends ActiveRecord
 
     //parametr key return value
 
-    public function Value($key, $lang = null)
+    public function Value($text_id, $key, $lang = null)
     {
-        return $this->find()->where(['key' => $key, 'lang_id' => $lang])->one()->value;
+        return $this->find()->where(['text_id'=> $text_id, 'key' => $key, 'lang_id' => $lang])->one()->value;
     }
     ###########################
 
