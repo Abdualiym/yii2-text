@@ -45,7 +45,9 @@ class TextMetaFields extends ActiveRecord
 
     public function Value($text_id, $key, $lang = null)
     {
-        return $this->find()->where(['text_id'=> $text_id, 'key' => $key, 'lang_id' => $lang])->one()->value;
+        if($model = $this->find()->where(['text_id'=> $text_id, 'key' => $key, 'lang_id' => $lang])->one()){
+            return $model ? $model->value : '';
+        }
     }
     ###########################
 
