@@ -69,22 +69,24 @@ $thumb = isset($text->photo) ? $text->getThumbFileUrl('photo', 'thumb') : '';
             </div>
         </div>
         <div class="col-md-4">
-            <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success btn-block ' . ($page ? '' : 'hidden')]) ?>
-            <div class="box box-default <?= $page ? 'hidden' : '' ?>">
+            <div class="box box-default">
                 <div class="box-header with-border">Общие настройки</div>
                 <div class="box-body">
                     <?= $form->field($model, 'category_id')->dropDownList($model->categoriesList(true), ['prompt' => 'No category'])->label('Категория') ?>
-                    <?php $model->date = $model->date ?: date('d.m.Y') ?>
-                    <?= $form->field($model, 'date')->widget(\yii\jui\DatePicker::classname(), [
-                        'dateFormat' => 'd.MM.yyyy',
-                        'clientOptions' => [
-                            // 'showButtonPanel'=>true,
-                            'changeYear' => true,
-                            'defaultDate' => date('Y-m-d')
-                        ],
-                        'options' => ['class' => 'form-control']
+                    <div class="<?= $page ? 'hidden' : '' ?>">
+                        <?php $model->date = $model->date ?: date('d.m.Y') ?>
+                        <?= $form->field($model, 'date')->widget(\yii\jui\DatePicker::classname(), [
+                            'dateFormat' => 'd.MM.yyyy',
+                            'clientOptions' => [
+                                // 'showButtonPanel'=>true,
+                                'changeYear' => true,
+                                'defaultDate' => date('Y-m-d')
+                            ],
+                            'options' => ['class' => 'form-control']
 //                    ])->label(Yii::t('text', 'Date'))
-                    ])->label('Дата публикаций') ?>
+                        ])->label('Дата публикаций') ?>
+                    </div>
+
                     <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success btn-block']) ?>
                 </div>
             </div>
