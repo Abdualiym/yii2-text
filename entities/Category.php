@@ -121,7 +121,7 @@ class Category extends ActiveRecord
 
     public function getCategoryType()
     {
-        return CategoryForm::getCategoryTypes($this->id);
+        return CategoryForm::getCategoryTypes($this->feed_with_image);
     }
 
 
