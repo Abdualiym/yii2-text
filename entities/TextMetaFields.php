@@ -2,6 +2,7 @@
 
 namespace abdualiym\text\entities;
 
+use abdualiym\languageClass\Language;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\Html;
@@ -40,6 +41,14 @@ class TextMetaFields extends ActiveRecord
         $this->value = $value;
     }
 
+    //parametr key return value
+
+    public function Value($text_id, $key, $lang = null)
+    {
+        if($model = $this->find()->where(['text_id'=> $text_id, 'key' => $key, 'lang_id' => $lang])->one()){
+            return $model ? $model->value : '';
+        }
+    }
     ###########################
 
     public function isForLanguage($id): bool
@@ -60,4 +69,5 @@ class TextMetaFields extends ActiveRecord
     {
         return '{{%text_meta_fields}}';
     }
+
 }
