@@ -40,22 +40,6 @@ $feed_with_image = (new \abdualiym\text\forms\CategoryForm())->getAttributeLabel
                         'format' => 'raw',
                     ],
                     [
-                        'attribute' => 'slug',
-                        'label' => 'RU',
-                        'value' => function (Category $model) {
-                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', Yii::$app->params['frontendUrl'] . '/ru' . Html::encode(MenuSlugHelper::getSlug($model->translations[0]['slug'], 'category', $model->id, Language::getLangByPrefix('ru'))), ['target' => '_blank']);
-                        },
-                        'format' => 'raw',
-                    ],
-                    [
-                        'attribute' => 'slug',
-                        'label' => 'UZ',
-                        'value' => function (Category $model) {
-                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', Yii::$app->params['frontendUrl'] . '/uz' . Html::encode(MenuSlugHelper::getSlug($model->translations[1]['slug'], 'category', $model->id, Language::getLangByPrefix('uz'))), ['target' => '_blank']);
-                        },
-                        'format' => 'raw',
-                    ],
-                    [
                         'attribute' => 'feed_with_image',
                         'value' => function ($model) {
                             return $model->getCategoryType();

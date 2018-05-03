@@ -68,24 +68,6 @@ $columns[] =
         },
         'format' => 'html',
     ];
-$columns[] =
-    [
-        'attribute' => 'slug',
-        'label' => 'RU',
-        'value' => function (Text $model) {
-            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', Yii::$app->params['frontendUrl'] . '/ru' . Html::encode(MenuSlugHelper::getSlug($model->translations[0]['slug'], 'content', $model->id, Language::getLangByPrefix('ru'))), ['target' => '_blank']);
-        },
-        'format' => 'raw',
-    ];
-$columns[] =
-    [
-        'attribute' => 'slug',
-        'label' => 'UZ',
-        'value' => function (Text $model) {
-            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', Yii::$app->params['frontendUrl'] . '/uz' . Html::encode(MenuSlugHelper::getSlug($model->translations[1]['slug'], 'content', $model->id, Language::getLangByPrefix('uz'))), ['target' => '_blank']);
-        },
-        'format' => 'raw',
-    ];
 ?>
 <div class="user-index">
 
