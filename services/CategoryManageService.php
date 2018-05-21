@@ -7,6 +7,7 @@ use abdualiym\text\entities\Category;
 use abdualiym\text\forms\CategoryForm;
 use abdualiym\text\repositories\CategoryRepository;
 use abdualiym\text\repositories\CategoryTranslationRepository;
+use yii\helpers\VarDumper;
 
 class CategoryManageService
 {
@@ -28,7 +29,7 @@ class CategoryManageService
      */
     public function create(CategoryForm $form): Category
     {
-        $category = Category::create($form->feed_with_image);
+        $category = Category::create($form->feed_with_image,$form->photo);
 
         foreach ($form->translations as $translation) {
             $category->setTranslation($translation->lang_id, $translation->name, $translation->title, $translation->description, $translation->meta);
@@ -43,7 +44,7 @@ class CategoryManageService
     {
         $category = $this->categories->get($id);
 
-        $category->edit($form->feed_with_image);
+        $category->edit($form->feed_with_image,$form->photo);
 
         foreach ($form->translations as $translation) {
             $category->setTranslation($translation->lang_id, $translation->name, $translation->title, $translation->description, $translation->meta);

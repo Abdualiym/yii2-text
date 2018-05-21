@@ -26,68 +26,84 @@ foreach ($model->translations as $i => $translation) {
 
 ?>
 
-<div class="category-form">
+    <div class="category-form">
 
-    <?php $form = ActiveForm::begin(); ?>
-
-    <div class="box box-default">
-
-        <div class="box-header with-border">Категория</div>
-        <div class="box-body">
-            <?= $form->errorSummary($model) ?>
-            <?php // $form->field($model, 'feed_with_image')->dropDownList($model::getCategoryTypes()) ?>
-            <?= $form->field($model, 'feed_with_image')
-                ->radioList(ArrayHelper::getColumn($model->getTemplateTypes(),'img'), [
-                'encode' => false,
-                'item' => function($index, $label, $name, $checked, $value) {
-
-                    $return = '<label>';
-                    $return .= '<input type="radio" class="hidden" name="' . $name . '" value="' . $value . '" tabindex="3">';
-                    $return .= $label;
-                    $return .= '</label>';
-
-                    return $return;
-                }
-            ]) ?>
-        </div>
-
-        <div class="box-body">
-
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs" role="tablist">
-                <?php foreach ($model->translations as $i => $translation): ?>
-                    <li role="presentation" <?= $i == 0 ? 'class="active"' : '' ?>>
-                        <a href="#<?= $langList[$translation->lang_id]['prefix'] ?>" aria-controls="<?= $langList[$translation->lang_id]['prefix'] ?>" role="tab" data-toggle="tab">
-                            <?= '(' . $langList[$translation->lang_id]['prefix'] . ') ' . $langList[$translation->lang_id]['title'] ?>
-                        </a>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <br>
-                <?php foreach ($model->translations as $i => $translation): ?>
-                    <div role="tabpanel" class="tab-pane <?= $i == 0 ? 'active' : '' ?>" id="<?= $langList[$translation->lang_id]['prefix'] ?>">
-                        <?= $form->field($translation, '[' . $i . ']name')->textInput(['maxlength' => true])->label("Название на (" . $langList[$translation->lang_id]['title'] . ")") ?>
-                        <?php //= $form->field($model->translations, 'slug[' . $i . ']')->textInput(['maxlength' => true]) ?>
-                        <?php //= $form->field($model->translations, 'title[' . $i . ']')->textInput(['maxlength' => true]) ?>
-                        <?= $form->field($translation, '[' . $i . ']description')->widget(\mihaildev\ckeditor\CKEditor::className()); ?>
-                        <?= $form->field($translation, '[' . $i . ']lang_id')->hiddenInput(['value' => $langList[$translation->lang_id]['id']])->label(false) ?>
-                    </div>
-                <?php endforeach; ?>
+        <?php $form = ActiveForm::begin([
+            'options' => ['enctype' => 'multipart/form-data']
+        ]); ?>
+        <div class="box" id="photos">
+            <div class="box-header with-border">Фотографий</div>
+            <div class="box-body">
+                <?= $form->field($model, 'photo')->widget(\kartik\file\FileInput::class, [
+                    'options' => [
+                        'accept' => 'image/*'
+                    ]
+                ])->label('Загрузить фотографий') ?>
             </div>
         </div>
+        <div class="box box-default">
+
+            <div class="box-header with-border">Категория</div>
+            <div class="box-body">
+                <?= $form->errorSummary($model) ?>
+                <?php // $form->field($model, 'feed_with_image')->dropDownList($model::getCategoryTypes()) ?>
+                <?= $form->field($model, 'feed_with_image')
+                    ->radioList(ArrayHelper::getColumn($model->getTemplateTypes(), 'img'), [
+                        'encode' => false,
+                        'item' => function ($index, $label, $name, $checked, $value) {
+
+                            $return = '<label>';
+                            $return .= '<input type="radio" class="hidden" name="' . $name . '" value="' . $value . '" tabindex="3">';
+                            $return .= $label;
+                            $return .= '</label>';
+
+                            return $return;
+                        }
+                    ]) ?>
+
+            </div>
+
+
+            <div class="box-body">
+
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <?php foreach ($model->translations as $i => $translation): ?>
+                        <li role="presentation" <?= $i == 0 ? 'class="active"' : '' ?>>
+                            <a href="#<?= $langList[$translation->lang_id]['prefix'] ?>"
+                               aria-controls="<?= $langList[$translation->lang_id]['prefix'] ?>" role="tab"
+                               data-toggle="tab">
+                                <?= '(' . $langList[$translation->lang_id]['prefix'] . ') ' . $langList[$translation->lang_id]['title'] ?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <br>
+                    <?php foreach ($model->translations as $i => $translation): ?>
+                        <div role="tabpanel" class="tab-pane <?= $i == 0 ? 'active' : '' ?>"
+                             id="<?= $langList[$translation->lang_id]['prefix'] ?>">
+                            <?= $form->field($translation, '[' . $i . ']name')->textInput(['maxlength' => true])->label("Название на (" . $langList[$translation->lang_id]['title'] . ")") ?>
+                            <?php //= $form->field($model->translations, 'slug[' . $i . ']')->textInput(['maxlength' => true]) ?>
+                            <?php //= $form->field($model->translations, 'title[' . $i . ']')->textInput(['maxlength' => true]) ?>
+                            <?= $form->field($translation, '[' . $i . ']description')->widget(\mihaildev\ckeditor\CKEditor::className()); ?>
+                            <?= $form->field($translation, '[' . $i . ']lang_id')->hiddenInput(['value' => $langList[$translation->lang_id]['id']])->label(false) ?>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+        </div>
+
+        <?php ActiveForm::end(); ?>
+
     </div>
-
-
-    <div class="form-group">
-        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
-
-</div>
 
 <?php
 

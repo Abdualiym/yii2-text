@@ -6,6 +6,8 @@ use abdualiym\languageClass\Language;
 use abdualiym\text\entities\Category;
 use elisdn\compositeForm\CompositeForm;
 use yii\helpers\Html;
+use yii\helpers\VarDumper;
+use yii\web\UploadedFile;
 
 /**
  * @property CategoryTranslationForm $translations
@@ -13,6 +15,7 @@ use yii\helpers\Html;
 class CategoryForm extends CompositeForm
 {
     public $feed_with_image;
+    public $photo;
     private $_category;
 
     public function __construct(Category $category = null, $config = [])
@@ -36,8 +39,21 @@ class CategoryForm extends CompositeForm
         return [
             [['feed_with_image'], 'required'],
             [['feed_with_image'], 'integer'],
+            ['photo', 'image'],
         ];
     }
+
+    public function beforeValidate(): bool
+    {
+        if (parent::beforeValidate()) {
+            $this->photo = UploadedFile::getInstances($this, 'photo');
+            $this->photo = $this->photo[0];
+            return true;
+        }
+
+        return false;
+    }
+
 
     public function attributeLabels()
     {

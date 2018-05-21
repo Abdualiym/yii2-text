@@ -10,6 +10,7 @@ use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yiidreamteam\upload\ImageUploadBehavior;
 
 /**
  * @property integer $id
@@ -34,16 +35,18 @@ class Category extends ActiveRecord
 
     public $meta;
 
-    public static function create($feed_with_image): self
+    public static function create($feed_with_image,$photo): self
     {
         $category = new static();
+        $category->photo = $photo;
         $category->feed_with_image = $feed_with_image;
         $category->status = self::STATUS_DRAFT;
         return $category;
     }
 
-    public function edit($feed_with_image)
+    public function edit($feed_with_image,$photo)
     {
+        $this->photo = $photo;
         $this->feed_with_image = $feed_with_image;
     }
 
@@ -145,6 +148,19 @@ class Category extends ActiveRecord
             [
                 'class' => SaveRelationsBehavior::class,
                 'relations' => ['translations'],
+            ],
+            [
+                'class' => ImageUploadBehavior::className(),
+                'attribute' => 'photo',
+                'createThumbsOnRequest' => true,
+                'filePath' => '@staticRoot/app/category/[[id]].[[extension]]',
+                'fileUrl' => '@staticUrl/app/category/[[id]].[[extension]]',
+                'thumbPath' => '@staticRoot/app/cache/category/[[profile]]_[[id]].[[extension]]',
+                'thumbUrl' => '@staticUrl/app/cache/category/[[profile]]_[[id]].[[extension]]',
+                'thumbs' => [
+                    'admin' => ['width' => 100, 'height' => 70],
+                    'thumb' => ['width' => 480, 'height' => 480],
+                ],
             ],
         ];
     }

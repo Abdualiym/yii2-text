@@ -34,6 +34,13 @@ $feed_with_image = (new \abdualiym\text\forms\CategoryForm())->getAttributeLabel
 //                'filterModel' => $searchModel,
                 'columns' => [
                     [
+                        'value' => function (Category $model) {
+                            return Html::img($model->getThumbFileUrl('photo', 'admin'));
+                        },
+                        'format' => 'raw',
+                        'contentOptions' => ['style' => 'width: 100px'],
+                    ],
+                    [
                         'attribute' => 'id',
                         'label' => 'Название',
                         'value' => function (Category $model) {

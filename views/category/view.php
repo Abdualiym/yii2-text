@@ -33,6 +33,14 @@ $langList = \abdualiym\languageClass\Language::langList(Yii::$app->params['langu
     <?= DetailView::widget([
         'model' => $category,
         'attributes' => [
+            [
+                'attribute' => 'photo',
+                'value' => function ($model) {
+                    return Html::img($model->getThumbFileUrl('photo', 'admin'));
+                },
+                'label' => 'Фото',
+                'format' => 'raw',
+            ],
             'id',
             [
                 'attribute' => 'status',
