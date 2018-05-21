@@ -3,6 +3,7 @@
 use abdualiym\languageClass\Language;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $form yii\widgets\ActiveForm */
@@ -22,6 +23,7 @@ foreach ($model->translations as $i => $translation) {
         }
     }
 }
+
 ?>
 
 <div class="category-form">
@@ -33,7 +35,20 @@ foreach ($model->translations as $i => $translation) {
         <div class="box-header with-border">Категория</div>
         <div class="box-body">
             <?= $form->errorSummary($model) ?>
-            <?= $form->field($model, 'feed_with_image')->dropDownList($model::getCategoryTypes()) ?>
+            <?php // $form->field($model, 'feed_with_image')->dropDownList($model::getCategoryTypes()) ?>
+            <?= $form->field($model, 'feed_with_image')
+                ->radioList(ArrayHelper::getColumn($model->getTemplateTypes(),'img'), [
+                'encode' => false,
+                'item' => function($index, $label, $name, $checked, $value) {
+
+                    $return = '<label>';
+                    $return .= '<input type="radio" class="hidden" name="' . $name . '" value="' . $value . '" tabindex="3">';
+                    $return .= $label;
+                    $return .= '</label>';
+
+                    return $return;
+                }
+            ]) ?>
         </div>
 
         <div class="box-body">
@@ -73,3 +88,42 @@ foreach ($model->translations as $i => $translation) {
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+
+$script = <<<JS
+$(function () {
+    $('.btn-radio').click(function(e) {
+        $('.btn-radio').not(this).removeClass('active')
+            .siblings('input').prop('checked',false)
+            .siblings('.img-radio').css('opacity','0.5');
+        $(this).addClass('active')
+            .siblings('input').prop('checked',true)
+            .siblings('.img-radio').css('opacity','1');
+    });
+});
+JS;
+
+$css = <<<CSS
+    #manager-table td{
+        border: 1px solid #ccc;
+        padding: 10px;
+    }
+    
+    .btn-radio {
+        width: 100%;
+    }
+    .img-radio {
+        opacity: 0.5;
+        margin-bottom: 5px;
+    }
+    
+    .space-20 {
+        margin-top: 20px;
+    }
+CSS;
+
+
+$this->registerCss($css);
+$this->registerJs($script);
+

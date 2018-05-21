@@ -49,10 +49,12 @@ $langList = \abdualiym\languageClass\Language::langList(Yii::$app->params['langu
             [
                 'attribute' => 'feed_with_image',
                 'value' => function ($model) {
-                    return $model->getCategoryType();
+                    $templates = \abdualiym\text\forms\CategoryForm::getTemplateTypes();
+
+                    return $templates[$model->feed_with_image]['title'];
                 },
-                'format' => 'boolean',
-                'label' => (new \abdualiym\text\forms\CategoryForm())->getAttributeLabel('feed_with_image')
+                'label' => 'Тип шаблона',
+                'format' => 'raw',
             ],
         ],
     ]) ?>

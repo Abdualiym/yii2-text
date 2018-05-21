@@ -6,6 +6,7 @@ use abdualiym\text\entities\Category;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\helpers\Html;
+use abdualiym\text\entities\Text;
 
 
 /* @var $this yii\web\View */
@@ -22,7 +23,8 @@ $feed_with_image = (new \abdualiym\text\forms\CategoryForm())->getAttributeLabel
 <div class="user-index">
 
     <p>
-        <?= Html::a('Добавить', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Html::tag('i', '', ['class' => 'fa fa-plus']) . ' Добавить', ['create'],
+            ['class' => 'btn btn-success btn-flat']) ?>
     </p>
 
     <div class="box">
@@ -35,21 +37,26 @@ $feed_with_image = (new \abdualiym\text\forms\CategoryForm())->getAttributeLabel
                         'attribute' => 'id',
                         'label' => 'Название',
                         'value' => function (Category $model) {
-                            return Html::a(Html::encode($model->translations[0]['name']), ['view', 'id' => $model->id]);
+                            return Html::a(Html::encode($model->translations[0]['name']), [
+                                'view',
+                                'id' => $model->id
+                            ]) . Html::tag('span','статей: '.Text::find()->where(['category_id' => $model->id,'status' => Text::STATUS_ACTIVE])->count(),['class' => 'label label-primary pull-right']);
                         },
                         'format' => 'raw',
                     ],
                     [
                         'attribute' => 'feed_with_image',
                         'value' => function ($model) {
-                            return $model->getCategoryType();
+                            $templates = \abdualiym\text\forms\CategoryForm::getTemplateTypes();
+
+                            return $templates[$model->feed_with_image]['title'];
                         },
-                        'format' => 'boolean',
-                        'label' => $feed_with_image,
+                        'label' => 'Тип шаблона',
+                        'format' => 'raw',
                     ],
                     [
                         'attribute' => 'status',
-                        'label' => Yii::t('text', 'Status'),
+                        'label' => 'Статус',
                         'value' => function (Category $model) {
                             return \abdualiym\text\helpers\TextHelper::statusLabel($model->status);
                         },

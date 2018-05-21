@@ -5,6 +5,7 @@ namespace abdualiym\text\forms;
 use abdualiym\languageClass\Language;
 use abdualiym\text\entities\Category;
 use elisdn\compositeForm\CompositeForm;
+use yii\helpers\Html;
 
 /**
  * @property CategoryTranslationForm $translations
@@ -49,17 +50,34 @@ class CategoryForm extends CompositeForm
         ];
     }
 
-    public static function getCategoryTypes($id = null)
+    public static function getTemplateTypes($id = null)
     {
         $types = [
-            0 => 'по умолчанию',
-            1 => 'без даты',
-            2 => 'без списка',
-            3 => 'Галерея'
+            Category::TEMPLATE_DEFAULT => [
+                'title' => 'по умолчанию',
+                'img' => Html::img('/img/templates/0.jpg', ['class' => 'img-responsive img-radio','style' => 'max-width:150px;'])
+                    . Html::button('по умолчанию', ['class' => 'btn btn-primary btn-radio btn-flat'])
+            ],
+            Category::TEMPLATE_WITHOUT_DATE => [
+                'title' => 'без даты',
+                'img' => Html::img('/img/templates/1.jpg', ['class' => 'img-responsive img-radio', 'style' => 'max-width:150px;'])
+                    . Html::button('без даты', ['class' => 'btn btn-primary btn-radio btn-flat'])
+            ],
+            Category::TEMPLATE_WITHOUT_LIST => [
+                'title' => 'без списка',
+                'img' => Html::img('/img/templates/2.jpg', ['class' => 'img-responsive img-radio', 'style' => 'max-width:150px;'])
+                    . Html::button('без списка', ['class' => 'btn btn-primary btn-radio btn-flat'])
+            ],
+            Category::TEMPLATE_GALLERY => [
+                'title' => 'Галерея',
+                'img' => Html::img('/img/templates/3.jpg', ['class' => 'img-responsive img-radio', 'style' => 'max-width:150px;'])
+                    . Html::button('Галерея', ['class' => 'btn btn-primary btn-radio btn-flat'])
+            ],
         ];
 
         return $id ? $types[$id] : $types;
     }
+
 
     public function internalForms()
     {

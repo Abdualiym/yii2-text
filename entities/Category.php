@@ -27,6 +27,11 @@ class Category extends ActiveRecord
     const STATUS_DRAFT = 0;
     const STATUS_ACTIVE = 1;
 
+    const TEMPLATE_DEFAULT = 0;
+    const TEMPLATE_WITHOUT_DATE = 1;
+    const TEMPLATE_WITHOUT_LIST = 2;
+    const TEMPLATE_GALLERY = 3;
+
     public $meta;
 
     public static function create($feed_with_image): self
@@ -119,9 +124,9 @@ class Category extends ActiveRecord
 
     ####################################
 
-    public function getCategoryType()
+    public function getTemplateTypes()
     {
-        return CategoryForm::getCategoryTypes($this->feed_with_image);
+        return CategoryForm::getTemplateTypes($this->feed_with_image);
     }
 
 

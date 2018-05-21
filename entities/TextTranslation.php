@@ -63,7 +63,7 @@ class TextTranslation extends ActiveRecord
                     }
                     $alterTranslation[$k]['link'] = \Yii::$app->params['frontendHostInfo'] . '/'
                         . $alterTranslation[$k]['lang']['prefix']
-                        . MenuSlugHelper::getSlug($tr['slug'], 'content', $tr['parent_id'], $alterTranslation[$k]['lang']);
+                        . $tr['slug'];
 
                 }
             }

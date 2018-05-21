@@ -32,7 +32,7 @@ $thumb = isset($text->photo) ? $text->getThumbFileUrl('photo', 'thumb') : '';
     ]); ?>
 
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-9">
 
             <div class="box box-default">
                 <div class="box-body">
@@ -68,7 +68,7 @@ $thumb = isset($text->photo) ? $text->getThumbFileUrl('photo', 'thumb') : '';
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="box box-default">
                 <div class="box-header with-border">Общие настройки</div>
                 <div class="box-body">
@@ -87,7 +87,7 @@ $thumb = isset($text->photo) ? $text->getThumbFileUrl('photo', 'thumb') : '';
                         ])->label('Дата публикаций') ?>
                     </div>
 
-                    <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success btn-block']) ?>
+                    <?= Html::submitButton(Html::tag('i','',['class'=>'fa fa-save']) . ' Сохранить', ['class' => 'btn btn-success btn-block btn-flat']) ?>
                 </div>
             </div>
 

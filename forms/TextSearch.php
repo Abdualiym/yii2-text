@@ -12,6 +12,8 @@ class TextSearch extends Model
     public $id;
     public $title;
     public $status;
+    public $category_id;
+    public $date;
     public $page;
 
     public function __construct($page, array $config = [])
@@ -24,8 +26,8 @@ class TextSearch extends Model
     public function rules(): array
     {
         return [
-            [['id', 'status',], 'integer'],
-            [['title'], 'safe'],
+            [['id', 'status'], 'integer'],
+            [['title','category_id'], 'safe'],
         ];
     }
 
@@ -35,9 +37,12 @@ class TextSearch extends Model
      */
     public function search(array $params): ActiveDataProvider
     {
-        $query = Text::find();
+        $query = Text::find()
+            ->joinWith(['translations' => function ($q) {
+                $q->andWhere(['lang_id' => 2]);
+            }]);
 
-//        echo $this->page;die;
+
 
         if ($this->page) {
             $query->andWhere(['is_article' => false]);
@@ -51,7 +56,8 @@ class TextSearch extends Model
                 'defaultOrder' => ['id' => SORT_DESC]
             ],
             'pagination' => [
-                'pageParam' => 'p'    
+                'pageParam' => 'p',
+                'pageSize' => 25
             ],
         ]);
 
@@ -67,7 +73,10 @@ class TextSearch extends Model
         ]);
 
         $query
-            ->andFilterWhere(['like', 'title', $this->title]);
+            ->andFilterWhere(['like', 'text_text_translations.title', $this->title])
+            ->andFilterWhere(['=', 'status', $this->status])
+            ->andFilterWhere(['=', 'category_id', $this->category_id]);
+
 
         return $dataProvider;
     }

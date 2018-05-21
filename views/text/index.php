@@ -5,6 +5,9 @@ use abdualiym\languageClass\Language;
 use abdualiym\text\entities\Text;
 use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
+use abdualiym\text\entities\CategoryTranslation;
+use abdualiym\text\forms\TextForm;
 
 /* @var $this yii\web\View */
 /* @var $searchModel abdualiym\text\forms\TextSearch */
@@ -13,16 +16,8 @@ use yii\helpers\Html;
 
 $this->title = Yii::t('text', $page ? 'Pages' : 'Articles');
 $this->params['breadcrumbs'][] = $this->title;
-
 $columns = [];
 if (!$page) {
-//    $columns[] = [
-//        'value' => function (Text $model) {
-//            return $model->photo ? Html::img($model->getThumbFileUrl('photo', 'admin')) : null;
-//        },
-//        'format' => 'raw',
-//        'contentOptions' => ['style' => 'width: 100px'],
-//    ];
     $columns[] = [
         'value' => function (Text $model) {
             return $model->mainPhoto ? Html::img($model->mainPhoto->getThumbFileUrl('file', 'admin')) : null;
@@ -37,6 +32,7 @@ if (!$page) {
             'value' => function (Text $model) {
                 return $model->category ? $model->category->translations[0]['name'] : 'No';
             },
+            'filter' => (new TextForm())->categoriesList(true)
         ];
     $columns[] =
         [
@@ -47,7 +43,7 @@ if (!$page) {
 
 }
 $columns[] = [
-    'attribute' => 'id',
+    'attribute' => 'title',
     'label' => 'Название',
     'value' => function (Text $model) {
         foreach ($model->translations as $translation) {
@@ -67,19 +63,20 @@ $columns[] =
             return \abdualiym\text\helpers\TextHelper::statusLabel($model->status);
         },
         'format' => 'html',
+        'filter' => [Text::STATUS_ACTIVE => 'Актывные', Text::STATUS_DRAFT => 'Черновики']
     ];
 ?>
 <div class="user-index">
 
     <p>
-        <?= Html::a('Добавить', ['create', 'page' => $page], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Html::tag('i','',['class' => 'fa fa-plus']).' Добавить', ['create', 'page' => $page], ['class' => 'btn btn-success btn-flat']) ?>
     </p>
 
     <div class="box">
         <div class="box-body">
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
-//                'filterModel' => $searchModel,
+                'filterModel' => $searchModel,
                 'columns' => $columns]) ?>
         </div>
     </div>
