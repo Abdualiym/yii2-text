@@ -35,6 +35,12 @@ foreach ($model->translations as $i => $translation) {
             <div class="box-header with-border">Фотографий</div>
             <div class="box-body">
                 <?= $form->field($model, 'photo')->widget(\kartik\file\FileInput::class, [
+                    'pluginOptions' => [
+                        'initialPreview'=>[
+                            isset($category) ? Html::img($category->getImageFileUrl('photo', 'admin'),['class' => 'img-responsive']): '',
+                        ],
+                        'overwriteInitial'=>true
+                    ],
                     'options' => [
                         'accept' => 'image/*'
                     ]
@@ -51,9 +57,11 @@ foreach ($model->translations as $i => $translation) {
                     ->radioList(ArrayHelper::getColumn($model->getTemplateTypes(), 'img'), [
                         'encode' => false,
                         'item' => function ($index, $label, $name, $checked, $value) {
-
+                            if($checked){
+                                $checked = 'checked';
+                            }
                             $return = '<label>';
-                            $return .= '<input type="radio" class="hidden" name="' . $name . '" value="' . $value . '" tabindex="3">';
+                            $return .= '<input '.$checked.' type="radio" class="hidden" name="' . $name . '" value="' . $value . '" tabindex="3">';
                             $return .= $label;
                             $return .= '</label>';
 
@@ -109,6 +117,7 @@ foreach ($model->translations as $i => $translation) {
 
 $script = <<<JS
 $(function () {
+    $('input[checked]').siblings('.btn-radio').addClass('active').siblings('.img-radio').css('opacity','1');
     $('.btn-radio').click(function(e) {
         $('.btn-radio').not(this).removeClass('active')
             .siblings('input').prop('checked',false)

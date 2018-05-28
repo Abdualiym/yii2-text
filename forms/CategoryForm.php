@@ -46,8 +46,7 @@ class CategoryForm extends CompositeForm
     public function beforeValidate(): bool
     {
         if (parent::beforeValidate()) {
-            $this->photo = UploadedFile::getInstances($this, 'photo');
-            $this->photo = $this->photo[0];
+            $this->photo = UploadedFile::getInstance($this, 'photo');
             return true;
         }
 
