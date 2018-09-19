@@ -3,6 +3,7 @@
 namespace abdualiym\text\entities;
 
 use abdualiym\languageClass\Language;
+use abdualiym\text\helpers\TextHelper;
 use backend\entities\User;
 use domain\modules\menu\entities\Menu;
 use abdualiym\text\entities\queries\TextQuery;
@@ -14,6 +15,7 @@ use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\helpers\VarDumper;
 use yii\web\UploadedFile;
 use yiidreamteam\upload\ImageUploadBehavior;
 
@@ -272,18 +274,43 @@ class Text extends ActiveRecord
         return false;
     }
 
+
     public function afterSave($insert, $changedAttributes)
     {
-        $related = $this->getRelatedRecords();
         parent::afterSave($insert, $changedAttributes);
+
+        $related = $this->getRelatedRecords();
         if (array_key_exists('mainPhoto', $related)) {
             $this->updateAttributes(['main_photo_id' => $related['mainPhoto'] ? $related['mainPhoto']->id : null]);
         }
+
+        $content = '';
+        foreach ($this->translations as $translation) {
+            $content .= '<br>Заголовок: <br>' . $translation->title;
+            $content .= '<br>Описание: <br>' . $translation->description;
+            $content .= '<br>Контент: <br>' . $translation->content;
+        }
+
+        ContentHistory::log(
+            '<b>TextID=' . $this->id . ' был ' . ($insert ? 'добавлен' : 'обновлен') . '</b>'
+            . '<br>дата: ' . date('d m Y', $this->date)
+            . '<br>статус: ' . TextHelper::statusName($this->status)
+            . '<br>тип: ' . ($this->is_article ? 'статья' : 'страница')
+            . '<br>категория: ' . ($this->category_id ?: 'нет')
+            . '<br>' . $content
+        );
     }
+
+
+    public function afterDelete()
+    {
+        parent::afterDelete();
+        ContentHistory::log('<b>TextID=' . $this->id . ' был удален.</b>');
+    }
+
 
     public static function find(): TextQuery
     {
         return new TextQuery(static::class);
     }
-
 }

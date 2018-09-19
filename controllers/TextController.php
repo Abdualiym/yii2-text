@@ -30,6 +30,7 @@ class TextController extends Controller implements ViewContextInterface
         $this->metaService = $metaService;
     }
 
+
     public function behaviors(): array
     {
         return [
